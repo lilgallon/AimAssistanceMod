@@ -23,6 +23,7 @@ public class AimAssistance {
 
     // Settings
     private final float INTERACTION_ATTACK_SPEED = 1f / 500f; // (attacks per ms) user faster means user attacking
+    private final int INTERACTION_ATTACK_DURATION = 1000; // (ms) duration after which we give up
     private final int INTERACTION_MINING_DURATION = 1000; // (ms) duration the player needs to be mining to assist
     private final int INTERACTION_DURATION = 2000; // (ms) duration during which the assistance will assist (i'm a poet)
 
@@ -121,6 +122,11 @@ public class AimAssistance {
                 }
 
             }
+        }
+        // If the player did not attack for that period of time, we give up and reset everything
+        else if (this.attackTimer.isDelayComplete(INTERACTION_ATTACK_DURATION)) {
+            this.attackTimer.stop();
+            this.attackCount = 0;
         }
 
         // COMMON SECTION
