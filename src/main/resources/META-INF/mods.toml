@@ -1,0 +1,16 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+issueTrackerURL="https://github.com/N3ROO/LatencyMod/issues"
+
+[[mods]]
+modId="aimassistance"
+version="1.0.0"
+displayName="Aim Assistance"
+# updateJSONURL="http://myurl.me/"
+displayURL="https://github.com/N3ROO/AimAssistance/"
+# logoFile="examplemod.png"
+# credits="someone"
+authors="@N3ROO on github"
+description='''
+A minecraft mod that helps you aiming (mods, blocks, but not players). Made for newbies or disabled players with difficulties to aim in general.
+'''
