@@ -1,13 +1,13 @@
 modLoader="javafml"
 loaderVersion="[32,)"
-issueTrackerURL="https://github.com/N3ROO/LatencyMod/issues"
+issueTrackerURL="https://github.com/N3ROO/AimAssistanceMod/issues"
 
 [[mods]]
-modId="aimassistance"
+modId="aimassistancemod"
 version="1.0.0"
 displayName="Aim Assistance"
 # updateJSONURL="http://myurl.me/"
-displayURL="https://github.com/N3ROO/AimAssistance/"
+displayURL="https://github.com/N3ROO/AimAssistanceMod/"
 # logoFile="examplemod.png"
 # credits="someone"
 authors="@N3ROO on github"
