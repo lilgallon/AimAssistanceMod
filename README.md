@@ -10,7 +10,7 @@ A minecraft mod that helps you aiming (mods, blocks, but not players). Made for 
 
 ## Disclamer
 
-**The mod has been designed to simplify the gameplay of people with disabilities**.
+**The mod has been designed to simplify the gameplay of people with disabilities (or newbies)**.
 
 If you play online, make sure that the server allows the use of this mod.
 It will only works on mobs anyway. Also, the server owner can easily blacklist
