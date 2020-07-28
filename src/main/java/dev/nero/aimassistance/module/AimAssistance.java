@@ -2,9 +2,9 @@ package dev.nero.aimassistance.module;
 
 import dev.nero.aimassistance.utils.TimeHelper;
 import dev.nero.aimassistance.utils.Wrapper;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
@@ -25,10 +25,9 @@ public class AimAssistance {
     private TimeHelper miningTimer = new TimeHelper();
     private TimeHelper attackTimer = new TimeHelper(); // used to calculate the attack speed of the player
     private int attackCount = 0; // used to calculate the attack speed of the player
+    private boolean attackKeyAlreadyPressed = false; // used to handle key press
 
-    private boolean attackKeyAlreadyPressed = false;
-
-    // Settings
+    // Behaviour settings
     private final float INTERACTION_ATTACK_SPEED = 1f / 1000f; // (attacks per ms) user faster means user attacking
     private final int INTERACTION_ATTACK_DURATION = 3000; // (ms) duration after which we give up
     private final int INTERACTION_MINING_DURATION = 500; // (ms) duration the player needs to be mining to assist
@@ -36,6 +35,10 @@ public class AimAssistance {
     private final float RANGE_TO_SCAN = 5; // (blocks) range to scan from the player to find entities
     private final Class ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
     private final float BLOCK_REACH = 7; // (blocks) reach to find blocks (lower than default -> ignored)
+
+    // Assistance settings
+    private final float FORCE = 5; // force of the assistance
+    private final float FOV = 60; // field of view
 
     /**
      * Inits attributes
@@ -69,7 +72,7 @@ public class AimAssistance {
 
             case BLOCK:
                 // Check what block the player is aiming at
-                Block target = Wrapper.getPointedBlock(this.BLOCK_REACH);
+                BlockPos target = Wrapper.getPointedBlock(this.BLOCK_REACH);
 
                 if (target != null) {
                     this.target = new Target(target);
@@ -163,7 +166,34 @@ public class AimAssistance {
     public void assistIfPossible() {
         // Assist the player by taking into account this.target, only if this.isInteracting is true
         if (this.interactingWith != TargetType.NONE && this.target.getType() != TargetType.NONE) {
-            System.out.println("Aiming at a " + (this.target.getType() == TargetType.BLOCK ? "block" : "entity"));
+            float[] rotations;
+            switch (this.target.getType()) {
+                case ENTITY:
+                    rotations = Wrapper.getRotationsNeeded(
+                            (Entity) target.getTarget(),
+                            FOV, FOV,
+                            FORCE, FORCE
+                    );
+
+                    if (rotations != null) {
+                        Wrapper.setRotations(rotations[0], rotations[1]);
+                    }
+
+                    break;
+
+                case BLOCK:
+                    rotations = Wrapper.getRotationsNeeded(
+                            (BlockPos) target.getTarget(),
+                            FOV, FOV,
+                            FORCE, FORCE
+                    );
+
+                    if (rotations != null) {
+                        Wrapper.setRotations(rotations[0], rotations[1]);
+                    }
+
+                    break;
+            }
         }
     }
 }

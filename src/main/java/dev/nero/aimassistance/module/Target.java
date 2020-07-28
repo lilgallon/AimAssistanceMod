@@ -1,7 +1,7 @@
 package dev.nero.aimassistance.module;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
 
 public class Target {
 
@@ -18,7 +18,7 @@ public class Target {
     /**
      * The target if it's a block
      */
-    private Block targetBlock = null;
+    private BlockPos targetBlock = null;
 
     /**
      * The target if it's an entity
@@ -36,7 +36,7 @@ public class Target {
      * Creates a target
      * @param block the target
      */
-    public Target(Block block) {
+    public Target(BlockPos block) {
         this.type = TargetType.BLOCK;
         this.targetBlock = block;
     }
