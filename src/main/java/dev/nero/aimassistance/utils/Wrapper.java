@@ -1,6 +1,7 @@
 package dev.nero.aimassistance.utils;
 
-import net.minecraft.block.Block;
+import dev.nero.aimassistance.module.Target;
+import dev.nero.aimassistance.module.TargetType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.*;
@@ -27,31 +28,17 @@ public class Wrapper {
     }
 
     /**
-     * @return the entity that the player is pointing at (null if none)
-     */
-    public static Entity pointedEntity() {
-        return Wrapper.MC.pointedEntity;
-    }
-
-    /**
      * @param maxRange max range to find a block
-     * @return the block pos that the player is pointing at (within the range given)
+     * @return the block ray trace result that represents the block that the player is pointing (within the range given)
      */
-    public static BlockPos getPointedBlock(float maxRange) {
+    public static BlockRayTraceResult getPointedBlock(float maxRange) {
         switch (MC.objectMouseOver.getType()) {
             case BLOCK:
-                return ((BlockRayTraceResult) MC.objectMouseOver).getPos();
-
+                return ((BlockRayTraceResult) MC.objectMouseOver);
             case MISS:
                 // The block is not within the player's range, so we need to perform a ray trace to find the block the
                 // player is pointing to
-                BlockRayTraceResult rayTraceResult = Wrapper.rayTrace(maxRange);
-                if (rayTraceResult != null) {
-                    return rayTraceResult.getPos();
-                } else {
-                    return null;
-                }
-
+                return Wrapper.rayTrace(maxRange);
             default:
                 return null;
         }
@@ -92,7 +79,7 @@ public class Wrapper {
     /**
      * @param range in blocks, defines the range around the player to scan for entities
      * @param entityClass the entity type to look for (Check the Entity class: MobEntity.class for mobs for example)
-     * @return
+     * @return all the entities that are within the given range from the player
      */
     public static List<Entity> getEntitiesAroundPlayer(float range, Class<? extends Entity> entityClass) {
         AxisAlignedBB area = new AxisAlignedBB(
@@ -145,8 +132,8 @@ public class Wrapper {
      */
     public static float[] getYawPitchBetween(Entity entityA, Entity entityB, float offsetX, float offsetY) {
         return Wrapper.getYawPitchBetween(
-                entityA.getPosX(), entityA.getPosY(), entityA.getPosZ(), entityA.getEyeHeight(),
-                entityB.getPosX(), entityB.getPosY(), entityB.getPosZ(), entityB.getEyeHeight(),
+                entityA.getPosX(), entityA.getPosY() + entityA.getEyeHeight(), entityA.getPosZ(),
+                entityB.getPosX(), entityB.getPosY() + entityB.getEyeHeight(), entityB.getPosZ(),
                 offsetX, offsetY
         );
     }
@@ -155,23 +142,21 @@ public class Wrapper {
      * @param xA x position for A
      * @param yA y position for A
      * @param zA z position for A
-     * @param eA eye position for A (shift on y)
      * @param xB x position for B
      * @param yB y position for B
      * @param zB z position for B
-     * @param eB eye position for B (shift on y)
      * @param offsetX final offset X
      * @param offsetY final offset Y
      * @return the [yaw, pitch] difference between the two positions
      */
     public static float[] getYawPitchBetween(
-            double xA, double yA, double zA, double eA,
-            double xB, double yB, double zB, double eB,
+            double xA, double yA, double zA,
+            double xB, double yB, double zB,
             float offsetX, float offsetY) {
 
         double diffX = xA - xB;
         double diffZ = zA - zB;
-        double diffY = yA + eA - (yB + eB);
+        double diffY = yA - yB;
 
         double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
 
@@ -182,21 +167,18 @@ public class Wrapper {
     }
 
     /**
-     * @param entity the target to aim.
+     * @param target the target to aim.
      * @return the [x, y] new positions of the player crosshair
      */
-    public static float[] getRotationsNeeded(Entity entity, float fovX, float fovY, float stepX, float stepY) {
-        if (entity == null) {
-            return null;
-        }
+    public static float[] getRotationsNeeded(Target target, float fovX, float fovY, float stepX, float stepY) {
 
-        // We calculate the yaw/pitch difference between the entity and the player
+        // We calculate the yaw/pitch difference between the target and the player
         float[] yawPitch = getYawPitchBetween(
-                entity, Wrapper.MC.player,
-                Offsets.getOffsets(entity.getClass())[0],
-                Offsets.getOffsets(entity.getClass())[1]
+            target.getTargetPosition()[0], target.getTargetPosition()[1], target.getTargetPosition()[2],
+            Wrapper.MC.player.getPosX(), Wrapper.MC.player.getPosY() + Wrapper.MC.player.getEyeHeight(), Wrapper.MC.player.getPosZ(),
+            target.getType() == TargetType.ENTITY ? Offsets.getOffsets(((Entity) target.getTarget()).getClass())[0] : 0,
+            target.getType() == TargetType.ENTITY ? Offsets.getOffsets(((Entity) target.getTarget()).getClass())[1] : 0
         );
-
 
         // We make sure that it's absolute, because the sign may change if we invert entity and MC.player
         //float yaw = MathHelper.abs(yawPitch[0]);
@@ -205,52 +187,7 @@ public class Wrapper {
         float pitch = yawPitch[1];
 
         // We check if the entity is within the FOV of the player
-        // yaw and pitch are absolute, not relative to anything. We fix that by calling wrapDegrees and substracting
-        // the yaw & pitch to the player's rotation. Now, the yaw, and the pitch are relative to the player's view
-        // So we can compare that with the given fov: radiusX, and radiusY (which are both in degrees)
-        boolean inFovX = MathHelper.abs(MathHelper.wrapDegrees(yaw - MC.player.rotationYaw)) <= fovX;
-        boolean inFovY = MathHelper.abs(MathHelper.wrapDegrees(pitch - MC.player.rotationPitch)) <= fovY;
-
-        // If the targeted entity is within the fov, then, we will compute the step in yaw / pitch of the player's view
-        // to get closer to the targeted entity. We will use the given stepX and stepY to compute that. Dividing by 100
-        // reduces that step. Without that, we would need to show very low values to the user in the GUI, which is not
-        // user-friendly. That way, instead of showing 0.05, we show 5.
-        if(inFovX && inFovY) {
-            float yawFinal, pitchFinal;
-            yawFinal = ((MathHelper.wrapDegrees(yaw - MC.player.rotationYaw)) * stepX) / 100;
-            pitchFinal = ((MathHelper.wrapDegrees(pitch - MC.player.rotationPitch)) * stepY) / 100;
-
-            return new float[] { MC.player.rotationYaw + yawFinal, MC.player.rotationPitch + pitchFinal};
-        } else {
-            return new float[] { MC.player.rotationYaw, MC.player.rotationPitch};
-        }
-    }
-
-    /**
-     * @param block the block to aim.
-     * @return the [x, y] new positions of the player crosshair
-     */
-    public static float[] getRotationsNeeded(BlockPos block, float fovX, float fovY, float stepX, float stepY) {
-        if (block == null) {
-            return null;
-        }
-
-        // We calculate the yaw/pitch difference between the block and the player
-        float[] yawPitch = getYawPitchBetween(
-                block.getX(), block.getY(), block.getZ(), 0,
-                MC.player.getPosX(), MC.player.getPosY(), MC.player.getPosZ(), MC.player.getEyeHeight(),
-                0, 0
-        );
-
-
-        // We make sure that it's absolute, because the sign may change if we invert entity and MC.player
-        //float yaw = MathHelper.abs(yawPitch[0]);
-        //float pitch = MathHelper.abs(yawPitch[1]);
-        float yaw = yawPitch[0];
-        float pitch = yawPitch[1];
-
-        // We check if the entity is within the FOV of the player
-        // yaw and pitch are absolute, not relative to anything. We fix that by calling wrapDegrees and substracting
+        // yaw and pitch are absolute, not relative to anything. We fix that by calling wrapDegrees and subtracting
         // the yaw & pitch to the player's rotation. Now, the yaw, and the pitch are relative to the player's view
         // So we can compare that with the given fov: radiusX, and radiusY (which are both in degrees)
         boolean inFovX = MathHelper.abs(MathHelper.wrapDegrees(yaw - MC.player.rotationYaw)) <= fovX;

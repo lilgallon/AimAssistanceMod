@@ -14,7 +14,7 @@ public class Offsets {
      */
     public static float[] getOffsets(Class<? extends Entity> entityClass) {
         if (entityClass == ZombieEntity.class) {
-            return new float[] { 0, -10 };
+            return new float[] { 0, 10 };
         }
 
         return new float[] { 0, 0 };

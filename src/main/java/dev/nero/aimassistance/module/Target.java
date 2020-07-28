@@ -1,7 +1,8 @@
 package dev.nero.aimassistance.module;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockRayTraceResult;
 
 public class Target {
 
@@ -18,7 +19,7 @@ public class Target {
     /**
      * The target if it's a block
      */
-    private BlockPos targetBlock = null;
+    private BlockRayTraceResult targetBlock = null;
 
     /**
      * The target if it's an entity
@@ -36,7 +37,7 @@ public class Target {
      * Creates a target
      * @param block the target
      */
-    public Target(BlockPos block) {
+    public Target(BlockRayTraceResult block) {
         this.type = TargetType.BLOCK;
         this.targetBlock = block;
     }
@@ -62,6 +63,58 @@ public class Target {
             default:
                 return null;
         }
+    }
+
+    public double[] getTargetPosition() {
+        switch (this.type) {
+            case ENTITY:
+                return new double[]{
+                        this.targetEntity.getPosX(),
+                        this.targetEntity.getPosY() + this.targetEntity.getEyeHeight(),
+                        this.targetEntity.getPosZ()
+                };
+
+            case BLOCK:
+                Direction face = this.targetBlock.getFace();
+
+                float x = this.targetBlock.getPos().getX() + 0.5f;
+                float y = this.targetBlock.getPos().getY() + 0.5f;
+                float z = this.targetBlock.getPos().getZ() + 0.5f;
+
+                // currently, (x, y, z) represents the middle of the block
+
+                // X ++: east
+                // X --: west
+                // Y ++: up
+                // y --: down
+                // Z ++: south
+                // Z --: north
+
+                switch (face) {
+                    case NORTH:
+                        z -= 0.5f;
+                        break;
+                    case SOUTH:
+                        z += 0.5f;
+                        break;
+                    case EAST:
+                        x += 0.5f;
+                        break;
+                    case WEST:
+                        x -= 0.5f;
+                        break;
+                    case UP:
+                        y += 0.5f;
+                        break;
+                    case DOWN:
+                        y -= 0.5f;
+                        break;
+                }
+
+                return new double[] { x, y, z };
+        }
+
+        return null;
     }
 
     /**
