@@ -10,10 +10,10 @@ A minecraft mod that helps aiming (at mods, blocks, but not players). Made for n
 
 **The mod has been designed to simplify the gameplay of people with disabilities**.
 
-If you play online, make sure that the server allows the use of this mod.
-It will only works on mobs anyway. Also, the server owner can easily blacklist
-this mod by blacklisting its id ("aimassistancemod"). I am not responsible for any
-misuse of this mod. You have been warned.
+If you play online, make sure that the server allows the use of this mod. It won't work on
+other players anyway, so it won't give you a PvP advantage. Also, the server owner can easily
+blacklist this mod by blacklisting its id ("aimassistancemod"). I am not responsible for any
+misuse of this mod.
 
 ## Roadmap
 Check [github projects](https://github.com/N3ROO/AimAssistanceMod/projects)
