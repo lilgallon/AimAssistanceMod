@@ -1,7 +1,7 @@
 package dev.nero.aimassistance.module;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Entity;
 
 public class Target {
 
@@ -18,7 +18,7 @@ public class Target {
     /**
      * The target if it's an entity
      */
-    private LivingEntity targetEntity = null;
+    private Entity targetEntity = null;
 
     /**
      * Creates an empty target
@@ -40,7 +40,7 @@ public class Target {
      * Creates a target
      * @param entity the target
      */
-    public Target(LivingEntity entity) {
+    public Target(Entity entity) {
         this.type = TargetType.ENTITY;
         this.targetEntity = entity;
     }

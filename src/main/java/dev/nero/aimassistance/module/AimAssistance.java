@@ -2,6 +2,11 @@ package dev.nero.aimassistance.module;
 
 import dev.nero.aimassistance.utils.TimeHelper;
 import dev.nero.aimassistance.utils.Wrapper;
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.MobEntity;
+
+import java.util.List;
 
 /**
  * These functions should be called periodically. Check their description for details.
@@ -23,9 +28,12 @@ public class AimAssistance {
 
     // Settings
     private final float INTERACTION_ATTACK_SPEED = 1f / 500f; // (attacks per ms) user faster means user attacking
-    private final int INTERACTION_ATTACK_DURATION = 1000; // (ms) duration after which we give up
+    private final int INTERACTION_ATTACK_DURATION = 3000; // (ms) duration after which we give up
     private final int INTERACTION_MINING_DURATION = 1000; // (ms) duration the player needs to be mining to assist
     private final int INTERACTION_DURATION = 2000; // (ms) duration during which the assistance will assist (i'm a poet)
+    private final float RANGE_TO_SCAN = 5; // (blocks) range to scan from the player to find entities
+    private final Class ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
+    private final float BLOCK_REACH = 7; // (blocks) reach to find blocks (lower than default -> ignored)
 
     /**
      * Inits attributes
@@ -46,21 +54,25 @@ public class AimAssistance {
         switch (this.interactingWith) {
             case ENTITY:
                 // Get all entities around the player
-                // TODO
+                List<Entity> entities = Wrapper.getEntitiesAroundPlayer(this.RANGE_TO_SCAN, this.ENTITY_TYPE_TO_SCAN);
 
                 // Get the closest one to the crosshair
-                // TODO
+                Entity closest = Wrapper.getClosestEntityToCrosshair(entities);
 
-                // If it's in the fov, it's the target
-                // TODO
+                if (closest != null) {
+                    this.target = new Target(closest);
+                }
+
                 break;
 
             case BLOCK:
-                // Else, check what block the player is aiming at
-                // TODO
+                // Check what block the player is aiming at
+                Block target = Wrapper.getPointedBlock(this.BLOCK_REACH);
 
-                // If no block found, don't do anything
-                // TODO
+                if (target != null) {
+                    this.target = new Target(target);
+                }
+
                 break;
         }
     }
@@ -147,7 +159,7 @@ public class AimAssistance {
     public void assistIfPossible() {
         // Assist the player by taking into account this.target, only if this.isInteracting is true
         if (this.interactingWith != TargetType.NONE) {
-            System.out.println("Aiming!");
+            System.out.println("Aiming at a " + (this.target.getType() == TargetType.BLOCK ? "block" : "entity"));
         }
     }
 }
