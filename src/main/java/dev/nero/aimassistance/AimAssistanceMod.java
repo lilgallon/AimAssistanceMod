@@ -1,6 +1,7 @@
 package dev.nero.aimassistance;
 
-import net.minecraft.client.Minecraft;
+import dev.nero.aimassistance.module.AimAssistance;
+import dev.nero.aimassistance.utils.Wrapper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,6 +18,8 @@ public class AimAssistanceMod
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
+    private AimAssistance aimAssistance;
+
     public AimAssistanceMod() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -25,15 +28,29 @@ public class AimAssistanceMod
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
+    private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Init");
+        aimAssistance = new AimAssistance();
+    }
+
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent playerTickEvent) {
+        if (Wrapper.playerPlaying()) {
+            aimAssistance.analyseBehaviour();
+        }
+    }
+
+    @SubscribeEvent
+    public void onClientTick(TickEvent.ClientTickEvent clientTickEvent) {
+        if (Wrapper.playerPlaying()) {
+            aimAssistance.analyseEnvironment();
+        }
     }
 
     @SubscribeEvent
     public void onRender(TickEvent.RenderTickEvent renderTickEvent) {
-        if (Minecraft.getInstance().player != null) {
-            // The user is playing
+        if (Wrapper.playerPlaying()) {
+            aimAssistance.assistIfPossible();
         }
     }
 }

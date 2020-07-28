@@ -13,16 +13,16 @@ public class Wrapper {
     public static Minecraft MC = Minecraft.getInstance();
 
     /**
-     * @return true if the player just pressed the attack key
+     * @return true if the player is playing
      */
-    public static boolean playerAttacks() {
-        return Wrapper.MC.gameSettings.keyBindAttack.isPressed();
+    public static boolean playerPlaying() {
+        return Wrapper.MC.player != null;
     }
 
     /**
      * @return true if the player is pressing the attack key
      */
-    public static boolean playerMines() {
+    public static boolean attackKeyPressed() {
         return Wrapper.MC.gameSettings.keyBindAttack.isKeyDown();
     }
 

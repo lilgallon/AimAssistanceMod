@@ -6,6 +6,11 @@ import net.minecraft.entity.Entity;
 public class Target {
 
     /**
+     * The null target (type = none)
+     */
+    public static Target NULL_TARGET = new Target();
+
+    /**
      * The type of the target
      */
     private TargetType type;
