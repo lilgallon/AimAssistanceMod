@@ -18,9 +18,6 @@ other players anyway, so it won't give you a PvP advantage. Also, the server own
 blacklist this mod by blacklisting its id ("aimassistancemod"). I am not responsible for any
 misuse of this mod.
 
-## Roadmap
-Check [github projects](https://github.com/N3ROO/AimAssistanceMod/projects)
-
 ## Contributing
 Don't hesitate to contribute. Even if it's your first time, it's never too late to learn!
 
