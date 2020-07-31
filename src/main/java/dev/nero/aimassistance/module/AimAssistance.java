@@ -1,5 +1,6 @@
 package dev.nero.aimassistance.module;
 
+import dev.nero.aimassistance.config.Config;
 import dev.nero.aimassistance.utils.TimeHelper;
 import dev.nero.aimassistance.utils.Wrapper;
 import net.minecraft.entity.Entity;
@@ -31,13 +32,13 @@ public class AimAssistance {
     private final float INTERACTION_ATTACK_SPEED = 1f / 1000f; // (attacks per ms) user faster means user attacking
     private final int INTERACTION_ATTACK_DURATION = 3000; // (ms) duration after which we give up
     private final int INTERACTION_MINING_DURATION = 400; // (ms) duration the player needs to be mining to assist
-    private final int INTERACTION_DURATION = 700; // (ms) duration during which the assistance will assist (i'm a poet)
+    private final int INTERACTION_DURATION = 500; // (ms) duration during which the assistance will assist (i'm a poet)
     private final float RANGE_TO_SCAN = 5; // (blocks) range to scan from the player to find entities
     private final Class ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
     private final float BLOCK_REACH = 7; // (blocks) reach to find blocks (lower than default -> ignored)
 
     // Assistance settings
-    private final float FORCE = 5; // force of the assistance
+    // (IS IN CONFIG CLASS) private final float FORCE = 5; // force of the assistance
     private final float FOV = 60; // field of view
 
     /**
@@ -94,7 +95,7 @@ public class AimAssistance {
         // MINING SECTION (Block)
 
         // If the player wasn't doing anything, and is pressing the attack key (same as mining), then start the timer
-        if (this.miningTimer.isStopped() && Wrapper.attackKeyPressed()) {
+        if (this.miningTimer.isStopped() && Wrapper.attackKeyPressed() && Config.isAimBlocks()) {
             this.miningTimer.start();
         }
         // Else (means that the player is mining) if the player stopped mining during the timer, then stop it
@@ -122,7 +123,7 @@ public class AimAssistance {
         }
 
         // First time that the player attacks
-        if (this.attackCount == 0 && playerAttacks) {
+        if (this.attackCount == 0 && playerAttacks && Config.isAimMobs()) {
             this.attackCount += 1;
             this.attackTimer.start();
         }
@@ -174,7 +175,7 @@ public class AimAssistance {
             final float[] rotations = Wrapper.getRotationsNeeded(
                     target,
                     FOV, FOV,
-                    FORCE, FORCE
+                    (float) Config.getAimForce(), (float) Config.getAimForce() // forceX, forceY
             );
 
             Wrapper.setRotations(rotations[0], rotations[1]);
