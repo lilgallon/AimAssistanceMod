@@ -4,7 +4,10 @@
 ![release](https://img.shields.io/github/release/n3roo/aimassistancemod.svg)
 
 A minecraft mod that helps aiming (at mods, blocks, but not players). Made for newbies or disabled players with difficulties to aim in general.
-![screenshot](.github/images/screenshot.png)
+
+![aim mobs demo](.github/images/aim_mobs.gif)
+
+![aim blocks demo](.github/images/aim_blocks.gif)
 
 ## Disclamer
 
