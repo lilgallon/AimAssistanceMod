@@ -4,21 +4,20 @@
 ![release](https://img.shields.io/github/release/n3roo/aimassistancemod.svg)
 ![build](https://img.shields.io/github/workflow/status/N3ROO/aimassistancemod/Build%20MC1.16.1?label=build%201.16.1)
 
-A minecraft mod that helps you aiming (mods, blocks, but not players). Made for newbies or disabled players with difficulties to aim in general.
+A minecraft mod that helps aiming (at mods, blocks, but not players). Made for newbies or disabled players with difficulties to aim in general.
 
-![screenshot](.github/images/screenshot.png)
+![aim mobs demo](.github/images/aim_mobs.gif)
+
+![aim blocks demo](.github/images/aim_blocks.gif)
 
 ## Disclamer
 
 **The mod has been designed to simplify the gameplay of people with disabilities (or newbies)**.
 
-If you play online, make sure that the server allows the use of this mod.
-It will only works on mobs anyway. Also, the server owner can easily blacklist
-this mod by blacklisting its id ("aimassistancemod"). I am not responsible for any
-misuse of this mod. You have been warned.
-
-## Roadmap
-Check [github projects](https://github.com/N3ROO/AimAssistanceMod/projects)
+If you play online, make sure that the server allows the use of this mod. It won't work on
+other players anyway, so it won't give you a PvP advantage. Also, the server owner can easily
+blacklist this mod by blacklisting its id ("aimassistancemod"). I am not responsible for any
+misuse of this mod.
 
 ## Contributing
 Don't hesitate to contribute. Even if it's your first time, it's never too late to learn!
