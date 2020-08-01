@@ -11,6 +11,11 @@ A minecraft mod that helps aiming (at mods, blocks, but not players). Made for n
 
 ![aim blocks demo](.github/images/aim_blocks.gif)
 
+## Config
+
+**Forge has still not implemented the HUD to customize mod's settings, so for now, you need to update the settings by hand.** 
+You can change the settings of the mod in the .minecraft/config folder. Then, open aimassistancemod-client.toml and update the values.
+
 ## Disclamer
 
 **The mod has been designed to simplify the gameplay of people with disabilities (or newbies)**.
