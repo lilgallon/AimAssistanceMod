@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/N3ROO/AimAssistanceMod/issues"
 
 [[mods]]
 modId="aimassistancemod"
-version="1.0.0"
+version="1.0.1"
 displayName="Aim Assistance"
 # updateJSONURL="http://myurl.me/"
 displayURL="https://github.com/N3ROO/AimAssistanceMod/"
