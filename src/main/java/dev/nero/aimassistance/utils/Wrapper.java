@@ -105,9 +105,7 @@ public class Wrapper {
         for(Entity entity : entities){
             // Get distance between the two entities (rotations)
             float[] yawPitch = getYawPitchBetween(
-                    entity, Wrapper.MC.player,
-                    Offsets.getOffsets(entity.getClass())[0],
-                    Offsets.getOffsets(entity.getClass())[1]
+                    Wrapper.MC.player, entity
             );
 
             // Compute the distance from the player's crosshair
@@ -126,42 +124,48 @@ public class Wrapper {
     }
 
     /**
-     * @param entityA an entity
-     * @param entityB an other one
-     * @return the [yaw, pitch] difference between the two entities
+     * @param source the source entity
+     * @param target the target of the source entity
      */
-    public static float[] getYawPitchBetween(Entity entityA, Entity entityB, float offsetX, float offsetY) {
+    public static float[] getYawPitchBetween(Entity source, Entity target) {
+        // getPosY returns the ground position
+        // getPosY + EyeHeight return the eye's position
+        // getPosY + EyeHeight/1.5 returns the upper body position
+        final float SHIFT_FACTOR = 1.5f;
+
         return Wrapper.getYawPitchBetween(
-                entityA.getPosX(), entityA.getPosY() + entityA.getEyeHeight(), entityA.getPosZ(),
-                entityB.getPosX(), entityB.getPosY() + entityB.getEyeHeight(), entityB.getPosZ(),
-                offsetX, offsetY
+                // source
+                source.getPosX(),
+                source.getPosY() + source.getEyeHeight(),
+                source.getPosZ(),
+                // target
+                target.getPosX(),
+                target.getPosY() + (target.getEyeHeight() / SHIFT_FACTOR),
+                target.getPosZ()
         );
     }
 
     /**
-     * @param xA x position for A
-     * @param yA y position for A
-     * @param zA z position for A
-     * @param xB x position for B
-     * @param yB y position for B
-     * @param zB z position for B
-     * @param offsetX final offset X
-     * @param offsetY final offset Y
-     * @return the [yaw, pitch] difference between the two positions
+     * @param sourceX x position for source
+     * @param sourceY y position for source
+     * @param sourceZ z position for source
+     * @param targetX x position for target
+     * @param targetY y position for target
+     * @param targetZ z position for target
+     * @return the [yaw, pitch] difference between the source and the target
      */
     public static float[] getYawPitchBetween(
-            double xA, double yA, double zA,
-            double xB, double yB, double zB,
-            float offsetX, float offsetY) {
+            double sourceX, double sourceY, double sourceZ,
+            double targetX, double targetY, double targetZ) {
 
-        double diffX = xA - xB;
-        double diffZ = zA - zB;
-        double diffY = yA - yB;
+        double diffX = targetX - sourceX;
+        double diffY = targetY - sourceY;
+        double diffZ = targetZ - sourceZ;
 
         double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
 
-        float yaw = (float) ((Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F ) + offsetX;
-        float pitch = (float) - (Math.atan2(diffY, dist) * 180.0D / Math.PI) + offsetY;
+        float yaw = (float) ((Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F );
+        float pitch = (float) - (Math.atan2(diffY, dist) * 180.0D / Math.PI);
 
         return new float[] { yaw, pitch };
     }
@@ -173,12 +177,24 @@ public class Wrapper {
     public static float[] getRotationsNeeded(Target target, float fovX, float fovY, float stepX, float stepY) {
 
         // We calculate the yaw/pitch difference between the target and the player
-        float[] yawPitch = getYawPitchBetween(
-            target.getTargetPosition()[0], target.getTargetPosition()[1], target.getTargetPosition()[2],
-            Wrapper.MC.player.getPosX(), Wrapper.MC.player.getPosY() + Wrapper.MC.player.getEyeHeight(), Wrapper.MC.player.getPosZ(),
-            target.getType() == TargetType.ENTITY ? Offsets.getOffsets(((Entity) target.getTarget()).getClass())[0] : 0,
-            target.getType() == TargetType.ENTITY ? Offsets.getOffsets(((Entity) target.getTarget()).getClass())[1] : 0
-        );
+        float[] yawPitch;
+        if (target.getType() == TargetType.ENTITY) {
+            yawPitch = getYawPitchBetween(
+                    Wrapper.MC.player,
+                    (Entity) target.getTarget()
+            );
+        } else {
+            yawPitch = getYawPitchBetween(
+                    // Player's pos
+                    Wrapper.MC.player.getPosX(),
+                    Wrapper.MC.player.getPosY() + Wrapper.MC.player.getEyeHeight(),
+                    Wrapper.MC.player.getPosZ(),
+                    // Target's pos
+                    target.getTargetPosition()[0],
+                    target.getTargetPosition()[1],
+                    target.getTargetPosition()[2]
+            );
+        }
 
         // We make sure that it's absolute, because the sign may change if we invert entity and MC.player
         //float yaw = MathHelper.abs(yawPitch[0]);
