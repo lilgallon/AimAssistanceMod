@@ -5,6 +5,7 @@ import dev.nero.aimassistance.utils.TimeHelper;
 import dev.nero.aimassistance.utils.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 
 import java.util.List;
@@ -30,9 +31,10 @@ public class AimAssistance {
 
     // Behaviour settings
     private final float INTERACTION_ATTACK_SPEED = 1f / 1000f; // (attacks per ms) user faster means user attacking
-    private final int INTERACTION_ATTACK_DURATION = 3000; // (ms) duration after which we give up
-    private final int INTERACTION_MINING_DURATION = 400; // (ms) duration the player needs to be mining to assist
-    private final int INTERACTION_DURATION = 500; // (ms) duration during which the assistance will assist (i'm a poet)
+    private final int INTERACTION_ATTACK_DURATION = 2000; // (ms) duration after which we give up
+    private final int INTERACTION_MINING_DURATION = 500; // (ms) duration the player needs to be mining to assist
+    private final int ASSISTANCE_ATTACK_DURATION = 1000; // (ms) duration during which the assistance will assist on mobs
+    private final int ASSISTANCE_MINING_DURATION = 300; // (ms) duration during which the assistance will assist on blocks
     private final float RANGE_TO_SCAN = 5; // (blocks) range to scan from the player to find entities
     private final Class ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
     private final float BLOCK_REACH = 7; // (blocks) reach to find blocks (lower than default -> ignored)
@@ -78,7 +80,9 @@ public class AimAssistance {
                 BlockRayTraceResult target = Wrapper.getPointedBlock(this.BLOCK_REACH);
 
                 if (target != null) {
-                    this.target = new Target(target);
+                    if (target.getPos() instanceof BlockPos.Mutable) {
+                        this.target = new Target(target);
+                    }
                 }
 
                 break;
@@ -95,11 +99,11 @@ public class AimAssistance {
         // MINING SECTION (Block)
 
         // If the player wasn't doing anything, and is pressing the attack key (same as mining), then start the timer
-        if (this.miningTimer.isStopped() && Wrapper.attackKeyPressed() && Config.isAimBlocks()) {
+        if (this.miningTimer.isStopped() && Wrapper.attackKeyPressed() && Config.isAimBlocks() && this.interactingWith != TargetType.ENTITY) {
             this.miningTimer.start();
         }
         // Else (means that the player is mining) if the player stopped mining during the timer, then stop it
-        else if (!this.miningTimer.isDelayComplete(this.INTERACTION_MINING_DURATION) && !Wrapper.attackKeyPressed()) {
+        else if (!this.miningTimer.isDelayComplete(this.INTERACTION_MINING_DURATION) && !Wrapper.attackKeyPressed() && this.interactingWith != TargetType.ENTITY) {
             this.miningTimer.stop();
         }
         // Else (means that the player is mining) if the player has been mining for the given duration, then they're
@@ -115,9 +119,9 @@ public class AimAssistance {
         // Event handling (convert "keyDown" to "isPressed". Minecraft has one built-in but using it may break some
         // code in the backend)
         boolean playerAttacks = false;
-        if (this.attackKeyAlreadyPressed && !Wrapper.attackKeyPressed()) {
+        if (this.attackKeyAlreadyPressed && !Wrapper.attackKeyPressed() && this.interactingWith != TargetType.BLOCK) {
             this.attackKeyAlreadyPressed = false;
-        } else if (!this.attackKeyAlreadyPressed && Wrapper.attackKeyPressed()) {
+        } else if (!this.attackKeyAlreadyPressed && Wrapper.attackKeyPressed() && this.interactingWith != TargetType.BLOCK) {
             playerAttacks = true;
             this.attackKeyAlreadyPressed = true;
         }
@@ -156,7 +160,9 @@ public class AimAssistance {
 
         // Stop the interaction once that the delay is reached
         if (this.interactingWith != TargetType.NONE
-                && this.interactionTimer.isDelayComplete(this.INTERACTION_DURATION)) {
+                && this.interactionTimer.isDelayComplete(
+                        this.interactingWith == TargetType.BLOCK ? ASSISTANCE_MINING_DURATION : ASSISTANCE_ATTACK_DURATION
+        )) {
             this.target = Target.NULL_TARGET;
             this.interactingWith = TargetType.NONE;
             this.interactionTimer.stop();
