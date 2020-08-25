@@ -14,23 +14,23 @@ public class Target {
     /**
      * The type of the target
      */
-    private TargetType type;
+    private final TargetType TYPE;
 
     /**
      * The target if it's a block
      */
-    private BlockRayTraceResult targetBlock = null;
+    private BlockRayTraceResult TARGET_BLOCK = null;
 
     /**
      * The target if it's an entity
      */
-    private Entity targetEntity = null;
+    private Entity TARGET_ENTITY = null;
 
     /**
      * Creates an empty target
      */
     public Target() {
-        this.type = TargetType.NONE;
+        this.TYPE = TargetType.NONE;
     }
 
     /**
@@ -38,8 +38,9 @@ public class Target {
      * @param block the target
      */
     public Target(BlockRayTraceResult block) {
-        this.type = TargetType.BLOCK;
-        this.targetBlock = block;
+        this.TYPE = TargetType.BLOCK;
+        this.TARGET_BLOCK = block;
+        this.TARGET_ENTITY = null;
     }
 
     /**
@@ -47,39 +48,40 @@ public class Target {
      * @param entity the target
      */
     public Target(Entity entity) {
-        this.type = TargetType.ENTITY;
-        this.targetEntity = entity;
+        this.TYPE = TargetType.ENTITY;
+        this.TARGET_BLOCK = null;
+        this.TARGET_ENTITY = entity;
     }
 
     /**
      * @return the target
      */
     public Object getTarget() {
-        switch (type) {
+        switch (TYPE) {
             case BLOCK:
-                return this.targetBlock;
+                return this.TARGET_BLOCK;
             case ENTITY:
-                return this.targetEntity;
+                return this.TARGET_ENTITY;
             default:
                 return null;
         }
     }
 
     public double[] getTargetPosition() {
-        switch (this.type) {
+        switch (this.TYPE) {
             case ENTITY:
                 return new double[]{
-                        this.targetEntity.getPosX(),
-                        this.targetEntity.getPosY() + this.targetEntity.getEyeHeight(),
-                        this.targetEntity.getPosZ()
+                        this.TARGET_ENTITY.getPosX(),
+                        this.TARGET_ENTITY.getPosY() + this.TARGET_ENTITY.getEyeHeight(),
+                        this.TARGET_ENTITY.getPosZ()
                 };
 
             case BLOCK:
-                Direction face = this.targetBlock.getFace();
+                Direction face = this.TARGET_BLOCK.getFace();
 
-                float x = this.targetBlock.getPos().getX() + 0.5f;
-                float y = this.targetBlock.getPos().getY() + 0.5f;
-                float z = this.targetBlock.getPos().getZ() + 0.5f;
+                float x = this.TARGET_BLOCK.getPos().getX() + 0.5f;
+                float y = this.TARGET_BLOCK.getPos().getY() + 0.5f;
+                float z = this.TARGET_BLOCK.getPos().getZ() + 0.5f;
 
                 // currently, (x, y, z) represents the middle of the block
 
@@ -121,6 +123,6 @@ public class Target {
      * @return the type of that target
      */
     public TargetType getType() {
-        return this.type;
+        return this.TYPE;
     }
 }

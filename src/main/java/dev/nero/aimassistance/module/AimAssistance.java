@@ -23,9 +23,9 @@ public class AimAssistance {
     private TargetType interactingWith; // defines what the player is interacting with (can be none)
 
     // Used to keep track of the player's behaviour
-    private TimeHelper interactionTimer = new TimeHelper(); // used to toggle the interaction for a given amount of time
-    private TimeHelper miningTimer = new TimeHelper();
-    private TimeHelper attackTimer = new TimeHelper(); // used to calculate the attack speed of the player
+    private final TimeHelper interactionTimer = new TimeHelper(); // used to toggle the interaction for a given amount of time
+    private final TimeHelper miningTimer = new TimeHelper();
+    private final TimeHelper attackTimer = new TimeHelper(); // used to calculate the attack speed of the player
     private int attackCount = 0; // used to calculate the attack speed of the player
     private boolean attackKeyAlreadyPressed = false; // used to handle key press
 
@@ -36,7 +36,7 @@ public class AimAssistance {
     private final int ASSISTANCE_ATTACK_DURATION = 1000; // (ms) duration during which the assistance will assist on mobs
     private final int ASSISTANCE_MINING_DURATION = 300; // (ms) duration during which the assistance will assist on blocks
     private final float RANGE_TO_SCAN = 5; // (blocks) range to scan from the player to find entities
-    private final Class ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
+    private final Class<? extends Entity> ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
     private final float BLOCK_REACH = 7; // (blocks) reach to find blocks (lower than default -> ignored)
 
     // Assistance settings

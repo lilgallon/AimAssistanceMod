@@ -11,17 +11,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(AimAssistanceMod.MODID)
+@Mod(AimAssistanceMod.MOD_ID)
 public class AimAssistanceMod
 {
-    // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    // Ready if needed
+    // private static final Logger LOGGER = LogManager.getLogger();
 
-    public static final String MODID = "aimassistancemod";
+    public static final String MOD_ID = "aimassistancemod";
     private AimAssistance aimAssistance;
 
     public AimAssistanceMod() {
@@ -36,7 +34,6 @@ public class AimAssistanceMod
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        LOGGER.info("Init");
         aimAssistance = new AimAssistance();
         Config.bakeConfig(); // init config values
     }
