@@ -9,6 +9,7 @@
     - 2.5 for blocks
 - When you're fighting a mob, the mod understands it and won't help you mining while you're fighting. Same thing if you're mining. It will help you to mine and not to fight.
 - Mining assistance now turns off as soon as the player stops mining
+- Added a version checker
 - Fixed an issue where the assistance would shake
 
 ## Version 1.0.1
