@@ -17,12 +17,12 @@ public class ClientConfig {
         aimForceMobs = builder
                 .comment("What should be the force of the aim assistance on mobs?")
                 .translation(AimAssistanceMod.MODID + ".config." + "aimForceMobs")
-                .defineInRange("aimForceMobs", 5.0, 0.1, 10.0);
+                .defineInRange("aimForceMobs", 4.0, 0.1, 10.0);
 
         aimForceBlocks = builder
                 .comment("What should be the force of the aim assistance on blocks?")
                 .translation(AimAssistanceMod.MODID + ".config." + "aimForceBlocks")
-                .defineInRange("aimForceBlocks", 5.0, 0.1, 10.0);
+                .defineInRange("aimForceBlocks", 2.5, 0.1, 10.0);
 
         aimMobs = builder
                 .comment("Should the aim assistance be activated for mobs?")
