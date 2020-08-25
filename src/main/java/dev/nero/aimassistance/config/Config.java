@@ -13,18 +13,24 @@ public class Config {
         CLIENT = specPair.getLeft();
     }
 
-    private static double aimForce;
+    private static double aimForceMobs;
+    private static double aimForceBlocks;
     private static boolean aimMobs;
     private static boolean aimBlocks;
 
     public static void bakeConfig() {
-        aimForce = CLIENT.aimForce.get();
+        aimForceMobs = CLIENT.aimForceMobs.get();
+        aimForceBlocks = CLIENT.aimForceBlocks.get();
         aimMobs = CLIENT.aimMobs.get();
         aimBlocks = CLIENT.aimBlocks.get();
     }
 
-    public static double getAimForce() {
-        return aimForce;
+    public static double getAimForceMobs() {
+        return aimForceMobs;
+    }
+
+    public static double getAimForceBlocks() {
+        return aimForceBlocks;
     }
 
     public static boolean isAimMobs() {

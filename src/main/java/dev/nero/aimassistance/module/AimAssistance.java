@@ -172,10 +172,17 @@ public class AimAssistance {
 
         // Assist the player by taking into account this.target, only if this.isInteracting is true
         if (this.interactingWith != TargetType.NONE && this.target.getType() != TargetType.NONE) {
+
+            float aimForce = (
+                    this.interactingWith == TargetType.BLOCK ?
+                            (float) Config.getAimForceBlocks() :
+                            (float) Config.getAimForceMobs()
+            );
+
             final float[] rotations = Wrapper.getRotationsNeeded(
                     target,
                     FOV, FOV,
-                    (float) Config.getAimForce(), (float) Config.getAimForce() // forceX, forceY
+                    aimForce, aimForce // forceX, forceY
             );
 
             Wrapper.setRotations(rotations[0], rotations[1]);

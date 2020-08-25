@@ -1,3 +1,11 @@
+## Version 1.1.0
+
+- Built for forge 1.16.2
+- Splitted aimForce into:
+    - aimForceBlocks: the force of the aim assistance on blocks
+    - aimForceMobs: the force of the aim assistance on mobs
+
+
 ## Version 1.0.1
 
 **Core:**

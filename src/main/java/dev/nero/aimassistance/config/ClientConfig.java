@@ -5,7 +5,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ClientConfig {
 
-    public final ForgeConfigSpec.DoubleValue aimForce;
+    public final ForgeConfigSpec.DoubleValue aimForceMobs;
+    public final ForgeConfigSpec.DoubleValue aimForceBlocks;
     public final ForgeConfigSpec.BooleanValue aimMobs;
     public final ForgeConfigSpec.BooleanValue aimBlocks;
 
@@ -13,10 +14,15 @@ public class ClientConfig {
 
         builder.push("Aim assistance"); // Category
 
-        aimForce = builder
-                .comment("What should be the force of the aim assistance?")
-                .translation(AimAssistanceMod.MODID + ".config." + "aimForce")
-                .defineInRange("aimForce", 5.0, 0.1, 10.0);
+        aimForceMobs = builder
+                .comment("What should be the force of the aim assistance on mobs?")
+                .translation(AimAssistanceMod.MODID + ".config." + "aimForceMobs")
+                .defineInRange("aimForceMobs", 5.0, 0.1, 10.0);
+
+        aimForceBlocks = builder
+                .comment("What should be the force of the aim assistance on blocks?")
+                .translation(AimAssistanceMod.MODID + ".config." + "aimForceBlocks")
+                .defineInRange("aimForceBlocks", 5.0, 0.1, 10.0);
 
         aimMobs = builder
                 .comment("Should the aim assistance be activated for mobs?")
