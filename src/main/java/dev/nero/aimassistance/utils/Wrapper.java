@@ -70,7 +70,7 @@ public class Wrapper {
                         vector3d,
                         vector3d1,
                         RayTraceContext.BlockMode.OUTLINE,
-                        RayTraceContext.FluidMode.ANY,
+                        RayTraceContext.FluidMode.NONE,
                         Wrapper.MC.player
                 )
         );
