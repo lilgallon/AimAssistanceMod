@@ -1,4 +1,4 @@
-package dev.nero.aimassistance.module;
+package dev.nero.aimassistance.core;
 
 import dev.nero.aimassistance.config.Config;
 import dev.nero.aimassistance.utils.TimeHelper;

@@ -1,7 +1,7 @@
 package dev.nero.aimassistance;
 
 import dev.nero.aimassistance.config.Config;
-import dev.nero.aimassistance.module.AimAssistance;
+import dev.nero.aimassistance.core.AimAssistance;
 import dev.nero.aimassistance.utils.Wrapper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;

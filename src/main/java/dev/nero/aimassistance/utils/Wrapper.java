@@ -1,7 +1,7 @@
 package dev.nero.aimassistance.utils;
 
-import dev.nero.aimassistance.module.Target;
-import dev.nero.aimassistance.module.TargetType;
+import dev.nero.aimassistance.core.Target;
+import dev.nero.aimassistance.core.TargetType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.*;

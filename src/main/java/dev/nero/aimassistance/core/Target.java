@@ -1,4 +1,4 @@
-package dev.nero.aimassistance.module;
+package dev.nero.aimassistance.core;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
