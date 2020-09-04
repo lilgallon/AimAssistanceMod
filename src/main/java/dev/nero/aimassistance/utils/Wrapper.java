@@ -45,33 +45,49 @@ public class Wrapper {
     }
 
     /**
-     * Copied from Item#rayTrace, and updated
+     * Performs ray tracing
      *
-     * @param range range to perform ray tracing
-     * @return result of ray tracing from the player's view within the range
+     * @param range the max range to look for blocks - it's actually the vector's length)
+     * @param source the source position - it's actually the vector's position)
+     * @param pitch the pitch of the vector from that source - it's the vector's y (vertical) direction
+     * @param yaw the raw of the unit from that source - it's the vector's x/z (horizontal) direction
+     * @return target.getPos() is instance of BlockPos.Mutable if nothing found, else it's an instance of the thing found.
      */
-    private static BlockRayTraceResult rayTrace(double range) {
+    private static BlockRayTraceResult rayTrace(double range, Vector3d source, float pitch, float yaw) {
         if (Wrapper.MC.player == null) return null;
 
-        float f = Wrapper.MC.player.rotationPitch;
-        float f1 = Wrapper.MC.player.rotationYaw;
-        Vector3d vector3d = Wrapper.MC.player.getEyePosition(1.0F);
-        float f2 = MathHelper.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
-        float f3 = MathHelper.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
-        float f4 = -MathHelper.cos(-f * ((float)Math.PI / 180F));
-        float f5 = MathHelper.sin(-f * ((float)Math.PI / 180F));
+        float f2 = MathHelper.cos(- yaw * ((float) Math.PI / 180F) - (float) Math.PI);
+        float f3 = MathHelper.sin(- yaw * ((float) Math.PI / 180F) - (float) Math.PI);
+        float f4 = -MathHelper.cos(- pitch * ((float) Math.PI / 180F));
+        float f5 = MathHelper.sin(- pitch * ((float) Math.PI / 180F));
         float f6 = f3 * f4;
         float f7 = f2 * f4;
-        Vector3d vector3d1 = vector3d.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
+        Vector3d vector3d1 = source.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
 
         return Wrapper.MC.world.rayTraceBlocks(
                 new RayTraceContext(
-                        vector3d,
+                        source,
                         vector3d1,
                         RayTraceContext.BlockMode.OUTLINE,
                         RayTraceContext.FluidMode.NONE,
                         Wrapper.MC.player
                 )
+        );
+    }
+
+
+    /**
+     * Performs ray tracing by taking into account the player's view
+     *
+     * @param range range to perform ray tracing
+     * @return result of ray tracing from the player's view within the range
+     */
+    private static BlockRayTraceResult rayTrace(double range) {
+        return Wrapper.rayTrace(
+                range,
+                Wrapper.MC.player.getEyePosition(1.0F),
+                Wrapper.MC.player.rotationPitch,
+                Wrapper.MC.player.rotationYaw
         );
     }
 
