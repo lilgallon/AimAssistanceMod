@@ -13,6 +13,8 @@ It will recognize the block that you're trying to break.
 But, if you want to change the block that you're breaking, just move your mouse.
 ![smart aim](.github/images/1_2_0_smart_aim_captions.gif)
 
+- Improved attack assistance (it puts your crosshair higher than before)
+- Increased attack assistance duration (1 sec -> 1.7 sec)
 - The assistance won't be running while you're in GUIs
 
 

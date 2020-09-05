@@ -146,7 +146,7 @@ public class Wrapper {
         // getPosY returns the ground position
         // getPosY + EyeHeight return the eye's position
         // getPosY + EyeHeight/1.5 returns the upper body position
-        final float SHIFT_FACTOR = 1.5f;
+        final float SHIFT_FACTOR = 1.25f;
 
         return Wrapper.getYawPitchBetween(
                 // source
