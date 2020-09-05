@@ -5,7 +5,6 @@ import dev.nero.aimassistance.core.TargetType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class Wrapper {
      * @param pitch the pitch of the vector from that source - it's the vector's y (vertical) direction
      * @return target.getPos() is instance of BlockPos.Mutable if nothing found, else it's an instance of the thing found.
      */
-    public static BlockRayTraceResult rayTrace(double range, Vector3d source, float yaw,  float pitch) {
+    public static BlockRayTraceResult rayTrace(double range, Vec3d source, float yaw,  float pitch) {
         if (Wrapper.MC.player == null) return null;
 
         float f2 = MathHelper.cos(- yaw * ((float) Math.PI / 180F) - (float) Math.PI);
@@ -62,7 +61,7 @@ public class Wrapper {
         float f5 = MathHelper.sin(- pitch * ((float) Math.PI / 180F));
         float f6 = f3 * f4;
         float f7 = f2 * f4;
-        Vector3d vector3d1 = source.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
+        Vec3d vector3d1 = source.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
 
         return Wrapper.MC.world.rayTraceBlocks(
                 new RayTraceContext(
