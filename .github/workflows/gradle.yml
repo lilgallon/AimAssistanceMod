@@ -1,4 +1,4 @@
-name: Build MC1.16.1
+name: Build MC1.16.2
 
 on:
   pull_request:
