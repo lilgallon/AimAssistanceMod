@@ -34,7 +34,7 @@ public class AimAssistance {
     private final float INTERACTION_ATTACK_SPEED = 1f / 1000f; // (attacks per ms) user faster means user attacking
     private final int INTERACTION_ATTACK_DURATION = 2000; // (ms) duration after which we give up
     private final int INTERACTION_MINING_DURATION = 500; // (ms) duration the player needs to be mining to assist
-    private final int ASSISTANCE_ATTACK_DURATION = 1000; // (ms) duration during which the assistance will assist on mobs
+    private final int ASSISTANCE_ATTACK_DURATION = 1700; // (ms) duration during which the assistance will assist on mobs
     private final int ASSISTANCE_MINING_DURATION = 300; // (ms) duration during which the assistance will assist on blocks
     private final float RANGE_TO_SCAN = 5; // (blocks) range to scan from the player to find entities
     private final Class<? extends Entity> ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
@@ -110,6 +110,8 @@ public class AimAssistance {
         // Else (means that the player is mining) if the player has been mining for the given duration, then they're
         // interacting
         else if (this.miningTimer.isDelayComplete(this.INTERACTION_MINING_DURATION) && Wrapper.attackKeyPressed()) {
+            this.attackTimer.stop();
+
             this.miningTimer.stop();
             this.interactionTimer.start(); // it will reset if already started, so we're all good
             this.interactingWith = TargetType.BLOCK;
@@ -142,6 +144,8 @@ public class AimAssistance {
             // If player's attack speed is greater than the speed given to toggle the assistance, then we can tell to
             // the instance that the player is interacting
             if (speed > this.INTERACTION_ATTACK_SPEED) {
+                this.miningTimer.stop();
+
                 // We need to reset the variables that are used to define if the player is interacting because we know
                 // that the user is interacting right now
                 this.attackCount = 0;
@@ -202,17 +206,22 @@ public class AimAssistance {
 
                 // If, after moving the mouse, an other block is focused, then don't assist
                 if (nextBlock != null && this.target.getTarget() != null) {
-                    BlockPos next = nextBlock.getPos();
-                    BlockPos curr = ((BlockRayTraceResult) this.target.getTarget()).getPos();
+                    if (this.target.getTarget() instanceof BlockRayTraceResult) {
 
-                    assist = (
-                            next.getX() == curr.getX() &&
-                            next.getY() == curr.getY() &&
-                            next.getZ() == curr.getZ()
-                    );
+                        BlockPos next = nextBlock.getPos();
+                        BlockPos curr = ((BlockRayTraceResult) this.target.getTarget()).getPos();
+
+                        assist = (
+                                next.getX() == curr.getX() &&
+                                        next.getY() == curr.getY() &&
+                                        next.getZ() == curr.getZ()
+                        );
+                    } else {
+                        assist = false;
+                    }
                 }
             }
-            assist = true;
+
             if (assist) Wrapper.setRotations(rotations[0], rotations[1]);
         }
     }
