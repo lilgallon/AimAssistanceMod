@@ -18,7 +18,6 @@ But, if you want to change the block that you're breaking, just move your mouse.
 - The assistance won't be running while you're in GUIs
 
 
-
 ## Version 1.1.0
 
 - Built for forge 1.16.2 (also works with forge 1.16.1)
