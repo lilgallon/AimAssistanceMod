@@ -17,7 +17,7 @@ public class Wrapper {
      * @return true if the player is playing
      */
     public static boolean playerPlaying() {
-        return Wrapper.MC.player != null;
+        return Wrapper.MC.player != null && Wrapper.MC.currentScreen == null;
     }
 
     /**
@@ -49,11 +49,11 @@ public class Wrapper {
      *
      * @param range the max range to look for blocks - it's actually the vector's length)
      * @param source the source position - it's actually the vector's position)
-     * @param pitch the pitch of the vector from that source - it's the vector's y (vertical) direction
      * @param yaw the raw of the unit from that source - it's the vector's x/z (horizontal) direction
+     * @param pitch the pitch of the vector from that source - it's the vector's y (vertical) direction
      * @return target.getPos() is instance of BlockPos.Mutable if nothing found, else it's an instance of the thing found.
      */
-    private static BlockRayTraceResult rayTrace(double range, Vector3d source, float pitch, float yaw) {
+    public static BlockRayTraceResult rayTrace(double range, Vector3d source, float yaw,  float pitch) {
         if (Wrapper.MC.player == null) return null;
 
         float f2 = MathHelper.cos(- yaw * ((float) Math.PI / 180F) - (float) Math.PI);

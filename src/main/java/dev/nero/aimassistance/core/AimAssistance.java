@@ -1,6 +1,7 @@
 package dev.nero.aimassistance.core;
 
 import dev.nero.aimassistance.config.Config;
+import dev.nero.aimassistance.utils.MouseUtils;
 import dev.nero.aimassistance.utils.TimeHelper;
 import dev.nero.aimassistance.utils.Wrapper;
 import net.minecraft.entity.Entity;
@@ -191,7 +192,28 @@ public class AimAssistance {
                     aimForce, aimForce // forceX, forceY
             );
 
-            Wrapper.setRotations(rotations[0], rotations[1]);
+            boolean assist = true;
+
+            // We need to prevent focusing an other block while assisting if the player is not moving his mouse
+            if (this.interactingWith == TargetType.BLOCK && !MouseUtils.mouseMoved()) {
+                BlockRayTraceResult nextBlock = Wrapper.rayTrace(
+                        this.BLOCK_REACH, Wrapper.MC.player.getEyePosition(1.0F), rotations[0], rotations[1]
+                );
+
+                // If, after moving the mouse, an other block is focused, then don't assist
+                if (nextBlock != null && this.target.getTarget() != null) {
+                    BlockPos next = nextBlock.getPos();
+                    BlockPos curr = ((BlockRayTraceResult) this.target.getTarget()).getPos();
+
+                    assist = (
+                            next.getX() == curr.getX() &&
+                            next.getY() == curr.getY() &&
+                            next.getZ() == curr.getZ()
+                    );
+                }
+            }
+            assist = true;
+            if (assist) Wrapper.setRotations(rotations[0], rotations[1]);
         }
     }
 }
