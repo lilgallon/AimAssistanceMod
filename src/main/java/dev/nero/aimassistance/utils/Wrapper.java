@@ -1,7 +1,7 @@
 package dev.nero.aimassistance.utils;
 
-import dev.nero.aimassistance.module.Target;
-import dev.nero.aimassistance.module.TargetType;
+import dev.nero.aimassistance.core.Target;
+import dev.nero.aimassistance.core.TargetType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.*;
@@ -17,7 +17,7 @@ public class Wrapper {
      * @return true if the player is playing
      */
     public static boolean playerPlaying() {
-        return Wrapper.MC.player != null;
+        return Wrapper.MC.player != null && Wrapper.MC.currentScreen == null;
     }
 
     /**
@@ -45,33 +45,49 @@ public class Wrapper {
     }
 
     /**
-     * Copied from Item#rayTrace, and updated
+     * Performs ray tracing
      *
-     * @param range range to perform ray tracing
-     * @return result of ray tracing from the player's view within the range
+     * @param range the max range to look for blocks - it's actually the vector's length)
+     * @param source the source position - it's actually the vector's position)
+     * @param yaw the raw of the unit from that source - it's the vector's x/z (horizontal) direction
+     * @param pitch the pitch of the vector from that source - it's the vector's y (vertical) direction
+     * @return target.getPos() is instance of BlockPos.Mutable if nothing found, else it's an instance of the thing found.
      */
-    private static BlockRayTraceResult rayTrace(double range) {
+    public static BlockRayTraceResult rayTrace(double range, Vector3d source, float yaw,  float pitch) {
         if (Wrapper.MC.player == null) return null;
 
-        float f = Wrapper.MC.player.rotationPitch;
-        float f1 = Wrapper.MC.player.rotationYaw;
-        Vector3d vector3d = Wrapper.MC.player.getEyePosition(1.0F);
-        float f2 = MathHelper.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
-        float f3 = MathHelper.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
-        float f4 = -MathHelper.cos(-f * ((float)Math.PI / 180F));
-        float f5 = MathHelper.sin(-f * ((float)Math.PI / 180F));
+        float f2 = MathHelper.cos(- yaw * ((float) Math.PI / 180F) - (float) Math.PI);
+        float f3 = MathHelper.sin(- yaw * ((float) Math.PI / 180F) - (float) Math.PI);
+        float f4 = -MathHelper.cos(- pitch * ((float) Math.PI / 180F));
+        float f5 = MathHelper.sin(- pitch * ((float) Math.PI / 180F));
         float f6 = f3 * f4;
         float f7 = f2 * f4;
-        Vector3d vector3d1 = vector3d.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
+        Vector3d vector3d1 = source.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
 
         return Wrapper.MC.world.rayTraceBlocks(
                 new RayTraceContext(
-                        vector3d,
+                        source,
                         vector3d1,
                         RayTraceContext.BlockMode.OUTLINE,
                         RayTraceContext.FluidMode.NONE,
                         Wrapper.MC.player
                 )
+        );
+    }
+
+
+    /**
+     * Performs ray tracing by taking into account the player's view
+     *
+     * @param range range to perform ray tracing
+     * @return result of ray tracing from the player's view within the range
+     */
+    private static BlockRayTraceResult rayTrace(double range) {
+        return Wrapper.rayTrace(
+                range,
+                Wrapper.MC.player.getEyePosition(1.0F),
+                Wrapper.MC.player.rotationPitch,
+                Wrapper.MC.player.rotationYaw
         );
     }
 
@@ -130,7 +146,7 @@ public class Wrapper {
         // getPosY returns the ground position
         // getPosY + EyeHeight return the eye's position
         // getPosY + EyeHeight/1.5 returns the upper body position
-        final float SHIFT_FACTOR = 1.5f;
+        final float SHIFT_FACTOR = 1.25f;
 
         return Wrapper.getYawPitchBetween(
                 // source
