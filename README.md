@@ -3,7 +3,7 @@
 [![curseforge downloads](http://cf.way2muchnoise.eu/full_399201_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aim-assistance)
 ![issues](https://img.shields.io/github/issues/n3roo/aimassistancemod.svg)
 ![release](https://img.shields.io/github/release/n3roo/aimassistancemod.svg)
-![build](https://img.shields.io/github/workflow/status/N3ROO/aimassistancemod/Build%20MC1.16.2?label=build%201.16.2)
+![build](https://img.shields.io/github/workflow/status/N3ROO/aimassistancemod/Build%20MC1.16.3?label=build%201.16.3)
 
 A minecraft mod that helps aiming (at mods, blocks, but not players). Made for newbies or disabled players with difficulties to aim in general.
 
