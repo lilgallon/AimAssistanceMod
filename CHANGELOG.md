@@ -1,5 +1,7 @@
 ## Version 1.2.0
 
+*Built for forge 1.16.3, works with 1.16.2 and 1.16.1*
+
 - Smart block aim assistance
 
 **BEFORE:**
@@ -20,7 +22,7 @@ But, if you want to change the block that you're breaking, just move your mouse.
 
 ## Version 1.1.0
 
-- Built for forge 1.16.2 (also works with forge 1.16.1)
+- Built for forge 1.16.2
 - Split aimForce into:
     - aimForceBlocks: the force of the aim assistance on blocks
     - aimForceMobs: the force of the aim assistance on mobs
