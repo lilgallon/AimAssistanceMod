@@ -1,3 +1,5 @@
+![logo](https://github.com/N3ROO/AimAssistanceMod/raw/MC_1.16.3/.github/images/aimassistancemod.png)
+
 # Aim Assistance
 ![github downloads](https://img.shields.io/github/downloads/n3roo/aimassistancemod/total.svg?label=github%20downloads)
 [![curseforge downloads](http://cf.way2muchnoise.eu/full_399201_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aim-assistance)
