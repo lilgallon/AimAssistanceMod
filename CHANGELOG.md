@@ -1,3 +1,7 @@
+## Version 1.2.1
+
+- The config file is now reloaded automatically when updated
+
 ## Version 1.2.0
 
 *Built for forge 1.16.3, works with 1.16.2 and 1.16.1*

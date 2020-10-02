@@ -1,8 +1,13 @@
 package dev.nero.aimassistance.config;
 
+import dev.nero.aimassistance.AimAssistanceMod;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 
+@Mod.EventBusSubscriber(modid = AimAssistanceMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
 
     public static final ClientConfig CLIENT;
@@ -17,6 +22,13 @@ public class Config {
     private static double aimForceBlocks;
     private static boolean aimMobs;
     private static boolean aimBlocks;
+
+    @SubscribeEvent
+    public static void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
+        if (configEvent.getConfig().getSpec() == Config.CLIENT_SPEC) {
+            Config.bakeConfig();
+        }
+    }
 
     public static void bakeConfig() {
         aimForceMobs = CLIENT.aimForceMobs.get();

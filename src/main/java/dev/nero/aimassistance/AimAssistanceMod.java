@@ -40,13 +40,6 @@ public class AimAssistanceMod
     }
 
     @SubscribeEvent
-    public void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
-        if (configEvent.getConfig().getSpec() == Config.CLIENT_SPEC) {
-            Config.bakeConfig(); // update the values
-        }
-    }
-
-    @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent playerTickEvent) {
         if (Wrapper.playerPlaying()) {
             aimAssistance.analyseBehaviour();
