@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.2.1-MC1.16.3'
+version = '1.2.1-MC1.16.x'
 group = 'dev.nero.aimassistance' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'aimassistance'
 
@@ -43,5 +43,5 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.0.0'
+    minecraft 'net.minecraftforge:forge:1.16.3-34.1.0'
 }
