@@ -1,3 +1,7 @@
+## Version 1.3.0
+
+- Support for the best controller mod - [Controllable](https://mrcrayfish.com/mods?id=controllable)
+
 ## Version 1.2.1
 
 - The config file is now reloaded automatically when updated

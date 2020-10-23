@@ -1,5 +1,6 @@
 package dev.nero.aimassistance.utils;
 
+import com.mrcrayfish.controllable.Controllable;
 import dev.nero.aimassistance.core.Target;
 import dev.nero.aimassistance.core.TargetType;
 import net.minecraft.client.Minecraft;
@@ -12,6 +13,14 @@ import java.util.List;
 public class Wrapper {
     
     public static Minecraft MC = Minecraft.getInstance();
+    private static boolean supportForControllable;
+
+    /**
+     * @param support if true, it will use the Controllable mod events
+     */
+    public static void setSupportForControllable(boolean support) {
+        supportForControllable = support;
+    }
 
     /**
      * @return true if the player is playing
@@ -24,7 +33,10 @@ public class Wrapper {
      * @return true if the player is pressing the attack key
      */
     public static boolean attackKeyPressed() {
-        return Wrapper.MC.gameSettings.keyBindAttack.isKeyDown();
+        // could use that as well: GLFW.glfwGetMouseButton(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_RIGHT) == GLFW.GLFW_PRESS;
+        boolean attackPressed = Wrapper.MC.gameSettings.keyBindAttack.isKeyDown(); // vanilla
+        attackPressed |= supportForControllable && Controllable.getController() != null && Controllable.getController().getRTriggerValue() != 0.0F; // controller
+        return attackPressed;
     }
 
     /**
