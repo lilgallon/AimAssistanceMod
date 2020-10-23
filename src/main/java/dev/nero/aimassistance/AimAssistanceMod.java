@@ -2,7 +2,6 @@ package dev.nero.aimassistance;
 
 import dev.nero.aimassistance.config.Config;
 import dev.nero.aimassistance.core.AimAssistance;
-import dev.nero.aimassistance.events.ControllerEvents;
 import dev.nero.aimassistance.utils.MouseUtils;
 import dev.nero.aimassistance.utils.Wrapper;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,7 +13,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -49,7 +47,6 @@ public class AimAssistanceMod
         if(ModList.get().isLoaded(CONTROLLABLE_MOD_ID))
         {
             Wrapper.setSupportForControllable(ModList.get().isLoaded(CONTROLLABLE_MOD_ID));
-            MinecraftForge.EVENT_BUS.register(new ControllerEvents());
         }
     }
 
