@@ -1,3 +1,8 @@
+## Version 1.4.0
+
+- Smart aim assistance: it will aim the closest part of a mob (instead of its neck)
+- "Stop when reached" option for mobs: if turned on, the mob aim assistance stops when you are looking at a mob
+
 ## Version 1.3.0
 
 - Support for the best controller mod - [Controllable](https://mrcrayfish.com/mods?id=controllable)
