@@ -5,6 +5,7 @@ import dev.nero.aimassistance.core.Target;
 import dev.nero.aimassistance.core.TargetType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -104,6 +105,13 @@ public class Wrapper {
     }
 
     /**
+     * @return true if the player is currently aiming at a mob
+     */
+    public static boolean isPlayerAimingMob() {
+        return Wrapper.MC.pointedEntity instanceof MobEntity;
+    }
+
+    /**
      * @param range in blocks, defines the range around the player to scan for entities
      * @param entityClass the entity type to look for (Check the Entity class: MobEntity.class for mobs for example)
      * @return all the entities that are within the given range from the player
@@ -131,7 +139,7 @@ public class Wrapper {
 
         for(Entity entity : entities){
             // Get distance between the two entities (rotations)
-            float[] yawPitch = getYawPitchBetween(
+            float[] yawPitch = getClosestYawPitchBetween(
                     Wrapper.MC.player, entity
             );
 
@@ -154,22 +162,32 @@ public class Wrapper {
      * @param source the source entity
      * @param target the target of the source entity
      */
-    public static float[] getYawPitchBetween(Entity source, Entity target) {
+    public static float[] getClosestYawPitchBetween(Entity source, Entity target) {
         // getPosY returns the ground position
         // getPosY + EyeHeight return the eye's position
         // getPosY + EyeHeight/1.5 returns the upper body position
-        final float SHIFT_FACTOR = 1.25f;
+        //final float SHIFT_FACTOR = 1.25f;
 
-        return Wrapper.getYawPitchBetween(
-                // source
-                source.getPosX(),
-                source.getPosY() + source.getEyeHeight(),
-                source.getPosZ(),
-                // target
-                target.getPosX(),
-                target.getPosY() + (target.getEyeHeight() / SHIFT_FACTOR),
-                target.getPosZ()
-        );
+        float[] bestYawPitch = new float[] { Float.MAX_VALUE, Float.MAX_VALUE };
+
+        for (float factor : new float[]{0f, 0.05f, 0.1f, 0.25f, 0.5f, 0.75f, 1.0f}) {
+            float[] yawPitch = Wrapper.getYawPitchBetween(
+                    // source
+                    source.getPosX(),
+                    source.getPosY() + source.getEyeHeight(),
+                    source.getPosZ(),
+                    // target
+                    target.getPosX(),
+                    target.getPosY() + target.getEyeHeight() * factor,
+                    target.getPosZ()
+            );
+
+            if (Math.abs(yawPitch[0]) + Math.abs(yawPitch[1]) < Math.abs(bestYawPitch[0]) + Math.abs(bestYawPitch[1])) {
+                bestYawPitch = yawPitch;
+            }
+        }
+
+        return bestYawPitch;
     }
 
     /**
@@ -206,7 +224,7 @@ public class Wrapper {
         // We calculate the yaw/pitch difference between the target and the player
         float[] yawPitch;
         if (target.getType() == TargetType.ENTITY) {
-            yawPitch = getYawPitchBetween(
+            yawPitch = getClosestYawPitchBetween(
                     Wrapper.MC.player,
                     (Entity) target.getTarget()
             );
