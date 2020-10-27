@@ -5,6 +5,7 @@ import dev.nero.aimassistance.core.Target;
 import dev.nero.aimassistance.core.TargetType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -101,6 +102,13 @@ public class Wrapper {
                 Wrapper.MC.player.rotationPitch,
                 Wrapper.MC.player.rotationYaw
         );
+    }
+
+    /**
+     * @return true if the player is currently aiming at a mob
+     */
+    public static boolean isPlayerAimingMob() {
+        return Wrapper.MC.pointedEntity instanceof MobEntity;
     }
 
     /**

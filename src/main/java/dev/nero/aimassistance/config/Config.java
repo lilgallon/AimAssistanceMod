@@ -18,6 +18,7 @@ public class Config {
         CLIENT = specPair.getLeft();
     }
 
+    private static boolean stopWhenReached;
     private static double aimForceMobs;
     private static double aimForceBlocks;
     private static boolean aimMobs;
@@ -31,10 +32,15 @@ public class Config {
     }
 
     public static void bakeConfig() {
+        stopWhenReached = CLIENT.stopWhenReached.get();
         aimForceMobs = CLIENT.aimForceMobs.get();
         aimForceBlocks = CLIENT.aimForceBlocks.get();
         aimMobs = CLIENT.aimMobs.get();
         aimBlocks = CLIENT.aimBlocks.get();
+    }
+
+    public static boolean isStopWhenReached() {
+        return stopWhenReached;
     }
 
     public static double getAimForceMobs() {
