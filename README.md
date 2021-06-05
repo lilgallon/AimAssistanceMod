@@ -1,11 +1,11 @@
-![logo](https://github.com/N3ROO/AimAssistanceMod/raw/MC_1.16.3/.github/images/aimassistancemod.png)
+![logo](https://github.com/lilgallon/AimAssistanceMod/raw/MC_1.16.3/.github/images/aimassistancemod.png)
 
 # Aim Assistance
-![github downloads](https://img.shields.io/github/downloads/n3roo/aimassistancemod/total.svg?label=github%20downloads)
+![github downloads](https://img.shields.io/github/downloads/lilgallon/aimassistancemod/total.svg?label=github%20downloads)
 [![curseforge downloads](http://cf.way2muchnoise.eu/full_399201_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aim-assistance)
-![issues](https://img.shields.io/github/issues/n3roo/aimassistancemod.svg)
-![release](https://img.shields.io/github/release/n3roo/aimassistancemod.svg)
-![build](https://img.shields.io/github/workflow/status/N3ROO/aimassistancemod/Build%20MC1.16.3?label=build%201.16.3)
+![issues](https://img.shields.io/github/issues/lilgallon/aimassistancemod.svg)
+![release](https://img.shields.io/github/release/lilgallon/aimassistancemod.svg)
+![build](https://img.shields.io/github/workflow/status/lilgallon/aimassistancemod/Build%20MC1.16.3?label=build%201.16.3)
 
 A minecraft mod that helps aiming (at mods, blocks, but not players). Made for newbies or disabled players with difficulties to aim in general.
 
@@ -37,4 +37,4 @@ I will most likely accept your pull request even if it's just a typo fix! :)
 
 ## Credits & Acknowledgements
 
-- [@N3ROO](https://github.com/N3ROO)  - *Main developer*
+- [@lilgallon](https://github.com/lilgallon)  - *Main developer*
