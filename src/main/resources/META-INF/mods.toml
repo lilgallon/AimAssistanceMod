@@ -5,7 +5,7 @@ license="MIT License"
 
 [[mods]]
 modId="aimassistancemod"
-version="1.3.0"
+version="1.4.0"
 displayName="Aim Assistance"
 updateJSONURL="https://raw.githubusercontent.com/lilgallon/AimAssistanceMod/MC_1.16.3/update.json"
 displayURL="https://github.com/lilgallon/AimAssistanceMod/"

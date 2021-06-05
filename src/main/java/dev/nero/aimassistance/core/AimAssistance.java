@@ -222,6 +222,11 @@ public class AimAssistance {
                 }
             }
 
+            // Don't assist if the option to stop when reached is on AND if the player is currently aiming at a mob
+            if (this.interactingWith == TargetType.ENTITY) {
+                assist = !(Config.isStopWhenReached() && Wrapper.isPlayerAimingMob());
+            }
+
             if (assist) Wrapper.setRotations(rotations[0], rotations[1]);
         }
     }
