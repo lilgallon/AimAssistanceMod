@@ -1,8 +1,8 @@
-package dev.nero.aimassistance.core;
+package dev.gallon.aimassistance.core;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class Target {
 
@@ -19,7 +19,7 @@ public class Target {
     /**
      * The target if it's a block
      */
-    private BlockRayTraceResult TARGET_BLOCK = null;
+    private BlockHitResult TARGET_BLOCK = null;
 
     /**
      * The target if it's an entity
@@ -37,7 +37,7 @@ public class Target {
      * Creates a target
      * @param block the target
      */
-    public Target(BlockRayTraceResult block) {
+    public Target(BlockHitResult block) {
         this.TYPE = TargetType.BLOCK;
         this.TARGET_BLOCK = block;
         this.TARGET_ENTITY = null;
@@ -71,17 +71,17 @@ public class Target {
         switch (this.TYPE) {
             case ENTITY:
                 return new double[]{
-                        this.TARGET_ENTITY.getPosX(),
-                        this.TARGET_ENTITY.getPosY() + this.TARGET_ENTITY.getEyeHeight(),
-                        this.TARGET_ENTITY.getPosZ()
+                        this.TARGET_ENTITY.getX(),
+                        this.TARGET_ENTITY.getY() + this.TARGET_ENTITY.getEyeHeight(),
+                        this.TARGET_ENTITY.getZ()
                 };
 
             case BLOCK:
-                Direction face = this.TARGET_BLOCK.getFace();
+                Direction face = this.TARGET_BLOCK.getDirection();
 
-                float x = this.TARGET_BLOCK.getPos().getX() + 0.5f;
-                float y = this.TARGET_BLOCK.getPos().getY() + 0.5f;
-                float z = this.TARGET_BLOCK.getPos().getZ() + 0.5f;
+                float x = this.TARGET_BLOCK.getBlockPos().getX() + 0.5f;
+                float y = this.TARGET_BLOCK.getBlockPos().getY() + 0.5f;
+                float z = this.TARGET_BLOCK.getBlockPos().getZ() + 0.5f;
 
                 // currently, (x, y, z) represents the middle of the block
 

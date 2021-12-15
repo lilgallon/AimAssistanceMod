@@ -1,13 +1,13 @@
-package dev.nero.aimassistance.core;
+package dev.gallon.aimassistance.core;
 
-import dev.nero.aimassistance.config.Config;
-import dev.nero.aimassistance.utils.MouseUtils;
-import dev.nero.aimassistance.utils.TimeHelper;
-import dev.nero.aimassistance.utils.Wrapper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import dev.gallon.aimassistance.config.Config;
+import dev.gallon.aimassistance.utils.MouseUtils;
+import dev.gallon.aimassistance.utils.TimeHelper;
+import dev.gallon.aimassistance.utils.Wrapper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class AimAssistance {
     private final int ASSISTANCE_ATTACK_DURATION = 1700; // (ms) duration during which the assistance will assist on mobs
     private final int ASSISTANCE_MINING_DURATION = 300; // (ms) duration during which the assistance will assist on blocks
     private final float RANGE_TO_SCAN = 5; // (blocks) range to scan from the player to find entities
-    private final Class<? extends Entity> ENTITY_TYPE_TO_SCAN = MobEntity.class; // defines the type of entity to scan
+    private final Class<? extends Entity> ENTITY_TYPE_TO_SCAN = Mob.class; // defines the type of entity to scan
     private final float BLOCK_REACH = 7; // (blocks) reach to find blocks (lower than default -> ignored)
 
     // Assistance settings
@@ -78,10 +78,10 @@ public class AimAssistance {
 
             case BLOCK:
                 // Check what block the player is aiming at
-                BlockRayTraceResult target = Wrapper.getPointedBlock(this.BLOCK_REACH);
+                BlockHitResult target = Wrapper.getPointedBlock(this.BLOCK_REACH);
 
                 if (target != null) {
-                    if (target.getPos() instanceof BlockPos.Mutable) {
+                    if (target.getBlockPos() instanceof BlockPos.MutableBlockPos) {
                         this.target = new Target(target);
                     }
                 }
@@ -200,16 +200,16 @@ public class AimAssistance {
 
             // We need to prevent focusing an other block while assisting if the player is not moving his mouse
             if (this.interactingWith == TargetType.BLOCK && !MouseUtils.mouseMoved()) {
-                BlockRayTraceResult nextBlock = Wrapper.rayTrace(
+                BlockHitResult nextBlock = Wrapper.rayTrace(
                         this.BLOCK_REACH, Wrapper.MC.player.getEyePosition(1.0F), rotations[0], rotations[1]
                 );
 
                 // If, after moving the mouse, an other block is focused, then don't assist
                 if (nextBlock != null && this.target.getTarget() != null) {
-                    if (this.target.getTarget() instanceof BlockRayTraceResult) {
+                    if (this.target.getTarget() instanceof BlockHitResult) {
 
-                        BlockPos next = nextBlock.getPos();
-                        BlockPos curr = ((BlockRayTraceResult) this.target.getTarget()).getPos();
+                        BlockPos next = nextBlock.getBlockPos();
+                        BlockPos curr = ((BlockHitResult) this.target.getTarget()).getBlockPos();
 
                         assist = (
                                 next.getX() == curr.getX() &&

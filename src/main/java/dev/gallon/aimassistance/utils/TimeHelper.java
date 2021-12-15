@@ -1,4 +1,4 @@
-package dev.nero.aimassistance.utils;
+package dev.gallon.aimassistance.utils;
 
 public class TimeHelper {
 

@@ -1,6 +1,6 @@
-package dev.nero.aimassistance.config;
+package dev.gallon.aimassistance.config;
 
-import dev.nero.aimassistance.AimAssistanceMod;
+import dev.gallon.aimassistance.AimAssistanceMod;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ClientConfig {

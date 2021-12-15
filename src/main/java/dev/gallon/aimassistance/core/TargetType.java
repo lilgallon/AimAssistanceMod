@@ -1,4 +1,4 @@
-package dev.nero.aimassistance.core;
+package dev.gallon.aimassistance.core;
 
 public enum TargetType {
     ENTITY, BLOCK, NONE

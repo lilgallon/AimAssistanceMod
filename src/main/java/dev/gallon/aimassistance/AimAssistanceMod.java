@@ -1,9 +1,9 @@
-package dev.nero.aimassistance;
+package dev.gallon.aimassistance;
 
-import dev.nero.aimassistance.config.Config;
-import dev.nero.aimassistance.core.AimAssistance;
-import dev.nero.aimassistance.utils.MouseUtils;
-import dev.nero.aimassistance.utils.Wrapper;
+import dev.gallon.aimassistance.config.Config;
+import dev.gallon.aimassistance.core.AimAssistance;
+import dev.gallon.aimassistance.utils.MouseUtils;
+import dev.gallon.aimassistance.utils.Wrapper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

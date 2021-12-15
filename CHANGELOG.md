@@ -1,3 +1,7 @@
+## Version 1.4.0 for MC 1.18.1
+
+- Updated mod to 1.18.1
+
 ## Version 1.4.0
 
 - Smart aim assistance: it will aim the closest part of a mob (instead of its neck) - (it's optimized)

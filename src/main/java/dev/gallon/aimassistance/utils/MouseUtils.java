@@ -1,4 +1,4 @@
-package dev.nero.aimassistance.utils;
+package dev.gallon.aimassistance.utils;
 
 /**
  * Need this class because forge did not implement the mouse move event. They did for the scroll and
@@ -13,8 +13,8 @@ public class MouseUtils {
     private static double prevY = -1;
 
     public static void checkForMouseMove() {
-        double currX = Wrapper.MC.mouseHelper.getMouseX();
-        double currY = Wrapper.MC.mouseHelper.getMouseY();
+        double currX = Wrapper.MC.mouseHandler.xpos();
+        double currY = Wrapper.MC.mouseHandler.ypos();
 
         if (prevX != -1 && prevY != -1) {
             mouseMoved = prevX != currX || prevY != currY;

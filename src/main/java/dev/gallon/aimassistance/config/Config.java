@@ -1,10 +1,11 @@
-package dev.nero.aimassistance.config;
+package dev.gallon.aimassistance.config;
 
-import dev.nero.aimassistance.AimAssistanceMod;
+import dev.gallon.aimassistance.AimAssistanceMod;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 @Mod.EventBusSubscriber(modid = AimAssistanceMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -25,7 +26,7 @@ public class Config {
     private static boolean aimBlocks;
 
     @SubscribeEvent
-    public static void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
+    public static void onModConfigEvent(final ModConfigEvent configEvent) {
         if (configEvent.getConfig().getSpec() == Config.CLIENT_SPEC) {
             Config.bakeConfig();
         }
