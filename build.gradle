@@ -1,13 +1,13 @@
 buildscript {
     repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven {
-            url = 'https://files.minecraftforge.net/maven'
+            url = 'https://maven.minecraftforge.net'
         }
-        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -15,16 +15,16 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.4.0-MC1.16.x'
-group = 'dev.nero.aimassistance' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = '1.4.0-MC1.18.x'
+group = 'dev.gallon.aimassistance' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'aimassistance'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
 minecraft {
-    //mappings channel: 'snapshot', version: '20200514-1.16'
-    mappings channel: 'snapshot', version: '20200707-1.16.1'
+    mappings channel: 'official', version: '1.18.1'
 
     runs {
         client {
@@ -47,11 +47,14 @@ minecraft {
 
 repositories {
     maven {
-        url = "https://www.cursemaven.com"
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.1.0'
-    compile fg.deobf('curse.maven:controllable:3068902')
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.5'
+    implementation fg.deobf('curse.maven:controllable-317269:3546297')
 }
