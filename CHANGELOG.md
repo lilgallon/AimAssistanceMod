@@ -1,3 +1,7 @@
+## Version 1.4.0 for MC 1.19.2
+
+- Updated mod to 1.19.2
+
 ## Version 1.4.0 for MC 1.18.2
 
 - Updated mod to 1.18.2
