@@ -10,10 +10,12 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+}
+apply plugin: 'net.minecraftforge.gradle'
 
 version = '1.4.0-MC1.18.x'
 group = 'dev.gallon.aimassistance' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -24,7 +26,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: '1.18.2'
 
     runs {
         client {
@@ -55,6 +57,6 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.5'
-    implementation fg.deobf('curse.maven:controllable-317269:3546297')
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
+    compileOnly fg.deobf('curse.maven:controllable-317269:3936914')
 }
