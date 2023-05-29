@@ -1,3 +1,5 @@
+**Project moved to [lilgallon/AimAssistance](https://github.com/lilmods/aim-assistance)**
+
 ![logo](https://github.com/lilgallon/AimAssistanceMod/raw/MC_1.16.3/.github/images/aimassistancemod.png)
 
 # Aim Assistance
