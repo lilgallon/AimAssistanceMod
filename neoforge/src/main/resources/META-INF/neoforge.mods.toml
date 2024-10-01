@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+issueTrackerURL = "${mod_issue_tracker}"
+license = "${mod_license}"
+
+[[mods]]
+modId="${mod_id}" #mandatory
+version="${mod_version}" #mandatory
+displayName="${mod_name}" #mandatory
+authors="${mod_authors}"
+description="${mod_description}"
+logoFile= "${mod_id}.png"
+updateJSONURL="${mod_update_json}"
+displayURL="${mod_display_url}"
+
+[[mixins]]
+config = "${mod_id}.mixins.json"
+
+[[dependencies.${mod_id}]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neoforge_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "minecraft"
+type = "required"
+versionRange = "${neoforge_minecraft_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "cloth_config"
+type = "required"
+versionRange = "${neoforge_cloth_config_version_range}"
+ordering = "NONE"
+side = "CLIENT"

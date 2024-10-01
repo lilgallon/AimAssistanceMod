@@ -1,0 +1,18 @@
+{
+  "text.autoconfig.motorassistancemod.title": "Motor Assistance Configuration",
+  "text.autoconfig.motorassistancemod.option.modConfig": "Configuration",
+  "text.autoconfig.motorassistancemod.option.modConfig.fov": "Field of view",
+  "text.autoconfig.motorassistancemod.option.modConfig.onlyAssistController": "Only assist when using a controller",
+  "text.autoconfig.motorassistancemod.option.modConfig.aimBlock": "Assist when mining",
+  "text.autoconfig.motorassistancemod.option.modConfig.blockRange": "Max block distance",
+  "text.autoconfig.motorassistancemod.option.modConfig.miningInteractionDuration": "Time before toggling mining assistance",
+  "text.autoconfig.motorassistancemod.option.modConfig.miningAssistanceDuration": "Duration of mining assistance",
+  "text.autoconfig.motorassistancemod.option.modConfig.miningAimForce": "Force of mining assistance",
+  "text.autoconfig.motorassistancemod.option.modConfig.aimEntity": "Assist when attacking",
+  "text.autoconfig.motorassistancemod.option.modConfig.entityRange": "Max entity distance",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackInteractionSpeed": "Click per seconds to toggle assistance",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackInteractionDuration": "Time before toggling attacking assistance",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackAssistanceDuration": "Duration of attacking assistance",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackAimForce": "Force of attacking assistance",
+  "text.autoconfig.motorassistancemod.option.modConfig.stopAttackOnReached": "Stop assistance when the player aims at the entity"
+}

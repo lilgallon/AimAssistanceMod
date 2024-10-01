@@ -1,43 +1,36 @@
 {
   "schemaVersion": 1,
-  "id": "motorassistance",
-  "version": "${version}",
-
-  "name": "motorassistance",
-  "description": "The only Minecraft Mod that helps to aim without giving an unfair PvP advantage. Useful for new players that are not used to play on a computer. Everything is configurable. Ideal to introduce Minecraft to your parents! ",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "lilgallon"
+    "${mod_authors}"
   ],
   "contact": {
-    "homepage": "https://github.com/lilmods/aim-assistance/issues",
-    "sources": "https://github.com/lilmods/aim-assistance"
+    "homepage": "${mod_display_url}",
+    "sources": "${mod_display_url}",
+    "issues": "${mod_issue_tracker}"
   },
-
-  "license": "GNU-GPL-3.0",
-  "icon": "assets/motorassistance/icon.png",
-
-  "environment": "*",
+  "license": "${mod_license}",
+  "icon": "${mod_id}.png",
+  "environment": "client",
   "entrypoints": {
-    "main": [
-      {
-        "adapter": "kotlin",
-        "value": "dev.gallon.motorassistance.fabric.MotorAssistance"
-      }
+    "client": [
+      "dev.gallon.motorassistance.fabric.MotorAssistanceModFabric"
     ],
     "modmenu": [
-      "dev.gallon.motorassistance.fabric.config.ModMenu"
+      "dev.gallon.motorassistance.config.ModMenu"
     ]
   },
   "mixins": [
-    "motorassistance.mixins.json"
+    "${mod_id}.mixins.json"
   ],
-
   "depends": {
-    "fabricloader": ">=0.14.0",
-    "minecraft": ">=1.21.1",
-    "java": ">=17",
-    "fabric-language-kotlin": ">=1.12.1+kotlin.2.0.0",
-    "cloth-config": ">=11.0.0"
-  },
-  "suggests": {}
+    "fabricloader": "${fabric_loader_version_requirement}",
+    "minecraft": "${fabric_minecraft_version_requirement}",
+    "java": "${fabric_java_version_requirement}",
+    "fabric-api": "${fabric_api_version_requirement}",
+    "cloth-config": "${fabric_cloth_config_version_requirement}"
+  }
 }

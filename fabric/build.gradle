@@ -1,0 +1,112 @@
+plugins {
+    id 'com.github.johnrengelman.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+repositories {
+    maven { url "https://maven.shedaniel.me/" } // cloth config
+    maven { url "https://maven.terraformersmc.com/releases/" } // mod menu
+    maven { url "https://cursemaven.com" } // controllable
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    // Files in this configuration will be bundled into your mod using the Shadow plugin.
+    // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+
+    modApi("me.shedaniel.cloth:cloth-config-fabric:$rootProject.fabric_cloth_config_version") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+    modApi "com.terraformersmc:modmenu:$rootProject.fabric_modmenu_version"
+
+    // compileOnly("curse.maven:controllable-fabric-851657:$controllableFabricVersion")
+}
+
+processResources {
+    var replaceProperties = [
+            // Mod info
+            mod_license                            : mod_license,
+            mod_name                               : mod_name,
+            mod_authors                            : mod_authors,
+            mod_description                        : mod_description,
+            mod_group_id                           : mod_group_id,
+            mod_display_url                        : mod_display_url,
+            mod_issue_tracker                      : mod_issue_tracker,
+            mod_update_json                        : mod_update_json,
+            // Mod properties
+            mod_id                                 : mod_id,
+            mod_version                            : mod_version,
+            maven_group                            : maven_group,
+            archives_name                          : archives_name,
+            enabled_platforms                      : enabled_platforms,
+            // Minecraft properties
+            minecraft_version                      : minecraft_version,
+            // Fabric Dependencies
+            fabric_loader_version                  : fabric_loader_version,
+            fabric_api_version                     : fabric_api_version,
+            fabric_cloth_config_version            : fabric_cloth_config_version,
+            // Fabric dependencies requirements
+            fabric_loader_version_requirement      : fabric_loader_version_requirement,
+            fabric_api_version_requirement         : fabric_api_version_requirement,
+            fabric_minecraft_version_requirement   : fabric_minecraft_version_requirement,
+            fabric_java_version_requirement        : fabric_java_version_requirement,
+            fabric_cloth_config_version_requirement: fabric_cloth_config_version_requirement
+    ]
+
+    inputs.properties replaceProperties
+
+    from(project(":common").sourceSets["main"].resources)
+
+    // For some reason fabric mixins won't work because refmap is not specified
+    // in mixins.json. AND forge won't work if refmap is specified. So in fabric
+    // we specify the refmap, and in forge we don't
+    filesMatching("motorassistancemod.mixins.json") {
+        filter { String line ->
+            line.find(" }").each {
+                line = it.replace(
+                        "}",
+                        "  },\n  \"refmap\": \"motorassistancemod-common-common-refmap.json\""
+                )
+            }
+            line
+        }
+    }
+
+    filesMatching('fabric.mod.json') {
+        expand replaceProperties + [project: project]
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+}

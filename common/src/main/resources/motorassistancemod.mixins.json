@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "dev.gallon.motorassistance.common.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "MinecraftClientMixin",
+    "MouseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
