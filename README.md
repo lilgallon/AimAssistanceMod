@@ -7,9 +7,9 @@ not used to play on a computer. Everything is configurable. Ideal to introduce M
 
 **Build status**
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilmods/aim-assistance/build-fabric.yml?style=for-the-badge&logo=gradle&label=fabric%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilmods/aim-assistance/release-fabric.yml?style=for-the-badge&logo=flatpak&logoColor=white&label=fabric%20release)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/build-fabric.yaml?style=for-the-badge&logo=gradle&label=fabric%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/release-fabric.yaml?style=for-the-badge&logo=flatpak&logoColor=white&label=fabric%20release)
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilmods/aim-assistance/build-forge.yml?style=for-the-badge&logo=gradle&label=forge%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilmods/aim-assistance/release-forge.yml?style=for-the-badge&logo=flatpak&logoColor=white&label=forge%20release)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/build-neoforge.yaml?style=for-the-badge&logo=gradle&label=forge%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/release-neoforge.yaml?style=for-the-badge&logo=flatpak&logoColor=white&label=forge%20release)
 
 **Downloads**
 
@@ -32,7 +32,3 @@ _Mining assistance_
 
 ![MotorAssistance config](.github/assets/motorassistance-config.png)
 _Configuration screen_
-
-**Configuration**
-
-_work in progress_
