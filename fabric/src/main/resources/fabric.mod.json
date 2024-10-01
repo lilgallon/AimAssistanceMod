@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "motorassistance",
+  "version": "${version}",
+
+  "name": "motorassistance",
+  "description": "The only Minecraft Mod that helps to aim without giving an unfair PvP advantage. Useful for new players that are not used to play on a computer. Everything is configurable. Ideal to introduce Minecraft to your parents! ",
+  "authors": [
+    "lilgallon"
+  ],
+  "contact": {
+    "homepage": "https://github.com/lilmods/aim-assistance/issues",
+    "sources": "https://github.com/lilmods/aim-assistance"
+  },
+
+  "license": "GNU-GPL-3.0",
+  "icon": "assets/motorassistance/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "dev.gallon.motorassistance.fabric.MotorAssistance"
+      }
+    ],
+    "modmenu": [
+      "dev.gallon.motorassistance.fabric.config.ModMenu"
+    ]
+  },
+  "mixins": [
+    "motorassistance.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "minecraft": ">=1.21.1",
+    "java": ">=17",
+    "fabric-language-kotlin": ">=1.12.1+kotlin.2.0.0",
+    "cloth-config": ">=11.0.0"
+  },
+  "suggests": {}
+}
