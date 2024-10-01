@@ -1,11 +1,13 @@
 package dev.gallon.motorassistance.common.services;
 
 import dev.gallon.motorassistance.common.domain.*;
-import dev.gallon.motorassistance.common.domain.Timer;
 import dev.gallon.motorassistance.common.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
@@ -15,23 +17,18 @@ import static net.minecraft.util.Mth.wrapDegrees;
 
 public class MotorAssistanceService {
     private final @NotNull MotorAssistanceConfig config;
-    private final @NotNull InputService inputService;
-
-    private Target target = null;
-    private @NotNull TargetType interactingWith = TargetType.NONE;
-
     // Used to assist the player for a given amount of time
     private final @NotNull Timer interactionTimer = new Timer();
     // Used to detect that a player is mining
     private final @NotNull Timer miningTimer = new Timer();
     // Used to detect that a player is attacking
     private final @NotNull Timer attackTimer = new Timer();
-
+    private Target target = null;
+    private @NotNull TargetType interactingWith = TargetType.NONE;
     private long attackCount = 0;
 
-    public MotorAssistanceService(@NotNull MotorAssistanceConfig config, @NotNull InputService inputService) {
+    public MotorAssistanceService(@NotNull MotorAssistanceConfig config) {
         this.config = config;
-        this.inputService = inputService;
     }
 
     /**
@@ -40,14 +37,12 @@ public class MotorAssistanceService {
     public void analyseEnvironment() {
         Optional<PlayerService> player = MinecraftService.getPlayer();
         if (player.isEmpty() || !player.get().canInteract()) return;
-        // TODO: controller
-        // if (config.onlyAssistController && !input.isControllerUsed()) return
 
         switch (interactingWith) {
             case TargetType.ENTITY -> computeClosestEntity(
-                        player.get(),
-                        player.get().findMobsAroundPlayer(config.getEntityRange())
-                ).ifPresent(entityService -> target = entityService);
+                    player.get(),
+                    player.get().findMobsAroundPlayer(config.getEntityRange())
+            ).ifPresent(entityService -> target = entityService);
             case TargetType.BLOCK -> MinecraftService
                     .getPointedBlock(config.getBlockRange())
                     .ifPresent(pointedBlock -> target = pointedBlock);
@@ -61,8 +56,6 @@ public class MotorAssistanceService {
     public void analyseBehavior() {
         Optional<PlayerService> player = MinecraftService.getPlayer();
         if (player.isEmpty() || !player.get().canInteract()) return;
-        // TODO: controller
-        // if (config.onlyAssistController && !input.isControllerUsed()) return
 
         // Common
         boolean attackKeyPressed = MinecraftService.attackKeyPressed();
@@ -86,7 +79,7 @@ public class MotorAssistanceService {
         }
 
         // Attack detection
-        boolean wasLeftClicked = inputService.wasAttackClicked();
+        boolean wasLeftClicked = InputService.wasAttackClicked();
         if (attackCount == 0 && wasLeftClicked && config.getAimEntity()) {
             attackCount += 1;
             attackTimer.start();
@@ -133,13 +126,11 @@ public class MotorAssistanceService {
     public void assistIfPossible() {
         Optional<PlayerService> player = MinecraftService.getPlayer();
         if (player.isEmpty() || !player.get().canInteract()) return;
-        // TODO: controller
-        // if (config.onlyAssistController && !input.isControllerUsed()) return
         if (target == null) return;
 
         if (interactingWith != TargetType.NONE) {
             float aimForce = (float) (interactingWith == TargetType.BLOCK ?
-                                config.getMiningAimForce() : config.getAttackAimForce());
+                    config.getMiningAimForce() : config.getAttackAimForce());
             Rotation rotation = computeRotationsNeeded(
                     player.get(),
                     target,
@@ -150,7 +141,7 @@ public class MotorAssistanceService {
 
             // We need to prevent focusing another block while assisting if the player is not moving his mouse
             boolean assist = false;
-            if (interactingWith == TargetType.BLOCK && !inputService.wasMoved()) {
+            if (interactingWith == TargetType.BLOCK && !InputService.wasMoved()) {
                 BlockService nextBlock = player.get().rayTrace(
                         config.getBlockRange(),
                         player.get().getEyesPosition(),

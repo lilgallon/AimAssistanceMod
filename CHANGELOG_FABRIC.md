@@ -11,9 +11,7 @@ Optional:
 - Modmenu: you will be able to edit the config with an interface
 
 Changes:
-- Support for controller mods:
-  - TODO
-  - TODO
+- It should support every controller mods (tested with `Controlify`)
 
 Links:
 - Modrinth: https://modrinth.com/mod/motor-assistance

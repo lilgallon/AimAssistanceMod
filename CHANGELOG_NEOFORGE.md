@@ -8,6 +8,8 @@ Requirements:
 - ClothConfig: `>=15.0.0`
 
 Changes:
-- Support for controller mods:
-  - TODO
-  - TODO
+- It should support every controller mods (tested with `Controlify`)
+
+Links:
+- Modrinth: https://modrinth.com/mod/motor-assistance
+- Cursforge: https://www.curseforge.com/minecraft/mc-mods/aim-assistance

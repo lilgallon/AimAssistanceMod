@@ -1,7 +1,5 @@
 package dev.gallon.motorassistance.common.domain;
 
-import org.jetbrains.annotations.NotNull;
-
 public class MotorAssistanceConfig {
     private double fov = 60.0;
     private boolean onlyAssistController = false;

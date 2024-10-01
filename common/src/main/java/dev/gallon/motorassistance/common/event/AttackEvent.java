@@ -1,4 +1,4 @@
 package dev.gallon.motorassistance.common.event;
 
-public class LeftMouseClickEvent implements Event {
+public class AttackEvent implements Event {
 }

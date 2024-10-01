@@ -1,5 +1,6 @@
 package dev.gallon.motorassistance.common.mixins;
 
+import dev.gallon.motorassistance.common.event.AttackEvent;
 import dev.gallon.motorassistance.common.event.RenderEvent;
 import dev.gallon.motorassistance.common.event.SingleEventBus;
 import dev.gallon.motorassistance.common.event.TickEvent;
@@ -8,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 public class MinecraftClientMixin {
@@ -20,5 +22,10 @@ public class MinecraftClientMixin {
     @Inject(method = "tick()V", at = @At("TAIL"))
     private void tickEvent(CallbackInfo info) {
         SingleEventBus.publish(new TickEvent());
+    }
+
+    @Inject(method = "startAttack()Z", at = @At("HEAD"))
+    private void onStartAttack(CallbackInfoReturnable<Boolean> cir) {
+        SingleEventBus.publish(new AttackEvent());
     }
 }

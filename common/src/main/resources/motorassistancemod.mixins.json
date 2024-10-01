@@ -7,7 +7,7 @@
   ],
   "mixins": [
     "MinecraftClientMixin",
-    "MouseMixin"
+    "EntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

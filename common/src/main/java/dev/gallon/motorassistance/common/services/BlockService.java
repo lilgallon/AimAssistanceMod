@@ -19,11 +19,11 @@ public class BlockService implements Target {
     public Position getFacePosition() {
         Position blockCenter = getPosition().plus(0.5);
         return switch (block.getDirection()) {
-            case WEST -> blockCenter.plusX(- 0.5);
+            case WEST -> blockCenter.plusX(-0.5);
             case EAST -> blockCenter.plusX(0.5);
-            case DOWN -> blockCenter.plusY(- 0.5);
-            case UP -> blockCenter.plusY(+ 0.5);
-            case NORTH -> blockCenter.plusZ(- 0.5);
+            case DOWN -> blockCenter.plusY(-0.5);
+            case UP -> blockCenter.plusY(+0.5);
+            case NORTH -> blockCenter.plusZ(-0.5);
             case SOUTH -> blockCenter.plusZ(0.5);
         };
     }
