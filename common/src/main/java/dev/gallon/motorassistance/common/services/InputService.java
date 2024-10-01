@@ -15,7 +15,6 @@ public class InputService {
 
     static boolean wasAttackClicked() {
         if (attacked) {
-            System.out.println("attacked");
             attacked = false;
             return true;
         } else {

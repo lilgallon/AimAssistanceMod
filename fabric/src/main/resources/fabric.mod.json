@@ -20,7 +20,7 @@
       "dev.gallon.motorassistance.fabric.MotorAssistanceModFabric"
     ],
     "modmenu": [
-      "dev.gallon.motorassistance.config.ModMenu"
+      "dev.gallon.motorassistance.fabric.config.ModMenu"
     ]
   },
   "mixins": [

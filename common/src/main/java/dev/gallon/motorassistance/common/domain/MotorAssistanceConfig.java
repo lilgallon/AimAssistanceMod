@@ -2,7 +2,6 @@ package dev.gallon.motorassistance.common.domain;
 
 public class MotorAssistanceConfig {
     private double fov = 60.0;
-    private boolean onlyAssistController = false;
     private boolean aimBlock = true;
     private double blockRange = 7.0;
     private long miningInteractionDuration = 500;
@@ -22,14 +21,6 @@ public class MotorAssistanceConfig {
 
     public void setFov(double fov) {
         this.fov = fov;
-    }
-
-    public boolean getOnlyAssistController() {
-        return onlyAssistController;
-    }
-
-    public void setOnlyAssistController(boolean onlyAssistController) {
-        this.onlyAssistController = onlyAssistController;
     }
 
     public boolean getAimBlock() {
