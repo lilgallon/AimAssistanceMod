@@ -24,7 +24,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Gradle Build
-        run: ./gradlew :fabric:build
+        run: ./gradlew :neoforge:build
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
