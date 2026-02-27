@@ -3,12 +3,12 @@
 *The mod has been entirely recoded, it will be a lot easier to maintain*
 
 Requirements:
-- Minecraft: `>=1.21.1`
-- NeoForge loader: `>=21.1.0`
-- ClothConfig: `>=15.0.0`
+- Minecraft: `>=1.21.11`
+- NeoForge loader: `>=21.11.0`
+- ClothConfig: `>=21.0.0`
 
 Changes:
-- It should support every controller mods (tested with `Controlify`)
+- 1.21.11 support
 
 Links:
 - Modrinth: https://modrinth.com/mod/motor-assistance

@@ -4,6 +4,7 @@ import dev.gallon.motorassistance.common.MotorAssistance;
 import dev.gallon.motorassistance.common.domain.ModMetadata;
 import dev.gallon.motorassistance.neoforge.config.TheModConfig;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.minecraft.client.gui.screens.Screen;
 import net.neoforged.fml.ModContainer;
@@ -22,7 +23,7 @@ public final class MotorAssistanceModNeoForge {
                 .registerExtensionPoint(IConfigScreenFactory.class, () -> new IConfigScreenFactory() {
                     @Override
                     public @NotNull Screen createScreen(@NotNull ModContainer modContainer, @NotNull Screen parent) {
-                        return AutoConfig.getConfigScreen(TheModConfig.class, parent).get();
+                        return AutoConfigClient.getConfigScreen(TheModConfig.class, parent).get();
                     }
                 });
 

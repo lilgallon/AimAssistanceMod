@@ -3,15 +3,15 @@
 *The mod has been entirely recoded, it will be a lot easier to maintain*
 
 Requirements:
-- Minecraft: `>=1.21.1`
-- Fabric loader: `>=0.16.0`
-- Cloth config: `>=15.0.0`
+- Minecraft: `>=1.21.11`
+- Fabric loader: `>=0.18.0`
+- Cloth config: `>=21.0.0`
 
 Optional:
 - Modmenu: you will be able to edit the config with an interface
 
 Changes:
-- It should support every controller mods (tested with `Controlify`)
+- 1.21.11 support
 
 Links:
 - Modrinth: https://modrinth.com/mod/motor-assistance
