@@ -1,14 +1,14 @@
 modLoader = "javafml"
 loaderVersion = "${neoforge_loader_version_range}"
 issueTrackerURL = "${mod_issue_tracker}"
-license = "${mod_license}"
+license = "${license}"
 
 [[mods]]
-modId="${mod_id}" #mandatory
-version="${mod_version}" #mandatory
-displayName="${mod_name}" #mandatory
-authors="${mod_authors}"
-description="${mod_description}"
+modId="${mod_id}"
+version="${version}"
+displayName="${mod_name}"
+authors="${mod_author}"
+description="${description}"
 logoFile= "${mod_id}.png"
 updateJSONURL="${mod_update_json}"
 displayURL="${mod_display_url}"
