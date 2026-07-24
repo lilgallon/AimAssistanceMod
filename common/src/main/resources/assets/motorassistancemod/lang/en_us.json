@@ -1,4 +1,10 @@
 {
+  "motorassistancemod.configuration.title": "Motor Assistance Configuration",
+  "motorassistancemod.configuration.section.motorassistancemod.client.toml": "Client configuration",
+  "motorassistancemod.configuration.section.motorassistancemod.client.toml.title": "Motor Assistance Client Configuration",
+  "motorassistancemod.configuration.motorassistancemod": "Motor Assistance",
+  "motorassistancemod.configuration.motorassistancemod.button": "Edit",
+  "motorassistancemod.configuration.motorassistancemod.tooltip": "Configure Motor Assistance.",
   "text.autoconfig.motorassistancemod.title": "Motor Assistance Configuration",
   "text.autoconfig.motorassistancemod.option.modConfig": "Configuration",
   "text.autoconfig.motorassistancemod.option.modConfig.fov": "Field of view",
@@ -14,5 +20,18 @@
   "text.autoconfig.motorassistancemod.option.modConfig.attackInteractionDuration": "Time before toggling attacking assistance",
   "text.autoconfig.motorassistancemod.option.modConfig.attackAssistanceDuration": "Duration of attacking assistance",
   "text.autoconfig.motorassistancemod.option.modConfig.attackAimForce": "Force of attacking assistance",
-  "text.autoconfig.motorassistancemod.option.modConfig.stopAttackOnReached": "Stop assistance when the player aims at the entity"
+  "text.autoconfig.motorassistancemod.option.modConfig.stopAttackOnReached": "Stop assistance when the player aims at the entity",
+  "text.autoconfig.motorassistancemod.option.modConfig.fov.tooltip": "Field of view in which aim assistance can acquire a target.",
+  "text.autoconfig.motorassistancemod.option.modConfig.aimBlock.tooltip": "Enable aim assistance while mining blocks.",
+  "text.autoconfig.motorassistancemod.option.modConfig.blockRange.tooltip": "Maximum block targeting distance.",
+  "text.autoconfig.motorassistancemod.option.modConfig.miningInteractionDuration.tooltip": "Interaction duration in milliseconds before mining assistance starts.",
+  "text.autoconfig.motorassistancemod.option.modConfig.miningAssistanceDuration.tooltip": "Maximum mining assistance duration in milliseconds.",
+  "text.autoconfig.motorassistancemod.option.modConfig.miningAimForce.tooltip": "Strength of mining aim assistance.",
+  "text.autoconfig.motorassistancemod.option.modConfig.aimEntity.tooltip": "Enable aim assistance while attacking entities.",
+  "text.autoconfig.motorassistancemod.option.modConfig.entityRange.tooltip": "Maximum entity targeting distance.",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackInteractionSpeed.tooltip": "Clicks per second required to trigger attack assistance.",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackInteractionDuration.tooltip": "Interaction duration in milliseconds before attack assistance starts.",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackAssistanceDuration.tooltip": "Maximum attack assistance duration in milliseconds.",
+  "text.autoconfig.motorassistancemod.option.modConfig.attackAimForce.tooltip": "Strength of attack aim assistance.",
+  "text.autoconfig.motorassistancemod.option.modConfig.stopAttackOnReached.tooltip": "Stop attack assistance once the targeted entity is reached."
 }

@@ -29,10 +29,3 @@ type = "required"
 versionRange = "${neoforge_minecraft_version_range}"
 ordering = "NONE"
 side = "CLIENT"
-
-[[dependencies.${mod_id}]]
-modId = "cloth_config"
-type = "required"
-versionRange = "${neoforge_cloth_config_version_range}"
-ordering = "NONE"
-side = "CLIENT"

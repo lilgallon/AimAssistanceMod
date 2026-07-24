@@ -66,7 +66,7 @@ processResources {
             'mod_author'                       : mod_author,
             'mod_id'                           : mod_id,
             'license'                          : license,
-            'description'                      : description,
+            'description'                      : project.description,
             'mod_display_url'                  : mod_display_url,
             'mod_issue_tracker'                : mod_issue_tracker,
             'mod_update_json'                  : mod_update_json,
@@ -74,7 +74,6 @@ processResources {
             'neoforge_loader_version_range'    : neoforge_loader_version_range,
             'neoforge_version_range'           : neoforge_version_range,
             'neoforge_minecraft_version_range' : neoforge_minecraft_version_range,
-            'neoforge_cloth_config_version_range': neoforge_cloth_config_version_range,
             'java_version'                     : java_version
     ]
 

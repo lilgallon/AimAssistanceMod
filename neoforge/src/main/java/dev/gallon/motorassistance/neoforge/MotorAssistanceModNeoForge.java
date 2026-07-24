@@ -3,30 +3,18 @@ package dev.gallon.motorassistance.neoforge;
 import dev.gallon.motorassistance.common.MotorAssistance;
 import dev.gallon.motorassistance.common.domain.ModMetadata;
 import dev.gallon.motorassistance.neoforge.config.TheModConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.AutoConfigClient;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import net.minecraft.client.gui.screens.Screen;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import org.jetbrains.annotations.NotNull;
 
-@Mod(ModMetadata.MOD_ID)
+@Mod(value = ModMetadata.MOD_ID, dist = Dist.CLIENT)
 public final class MotorAssistanceModNeoForge {
-    public MotorAssistanceModNeoForge() {
-        AutoConfig.register(TheModConfig.class, JanksonConfigSerializer::new);
-        TheModConfig config = AutoConfig.getConfigHolder(TheModConfig.class).getConfig();
-        ModLoadingContext
-                .get()
-                .registerExtensionPoint(IConfigScreenFactory.class, () -> new IConfigScreenFactory() {
-                    @Override
-                    public @NotNull Screen createScreen(@NotNull ModContainer modContainer, @NotNull Screen parent) {
-                        return AutoConfigClient.getConfigScreen(TheModConfig.class, parent).get();
-                    }
-                });
-
-        MotorAssistance.start(config.modConfig);
+    public MotorAssistanceModNeoForge(ModContainer container) {
+        MotorAssistance.start(TheModConfig.config);
+        container.registerConfig(ModConfig.Type.CLIENT, TheModConfig.CLIENT_SPEC);
+        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 }

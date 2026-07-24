@@ -3,9 +3,11 @@ plugins {
     id 'net.fabricmc.fabric-loom'
 }
 
+version = rootProject.version
+
 repositories {
     maven { url "https://maven.shedaniel.me/" }         // cloth config
-    maven { url "https://maven.terraformersmc.com/releases/" } // mod menu
+    maven { url "https://maven.terraformersmc.com/" } // mod menu
 }
 
 dependencies {
@@ -29,12 +31,6 @@ loom {
             setConfigName('Fabric Client')
             ideConfigGenerated(true)
             runDir('runs/client')
-        }
-        server {
-            server()
-            setConfigName('Fabric Server')
-            ideConfigGenerated(true)
-            runDir('runs/server')
         }
     }
 }

@@ -1,15 +1,7 @@
-## Version 3.0.0 NeoForge
+## Version 3.1.0 NeoForge
 
-*The mod has been entirely recoded, it will be a lot easier to maintain*
-
-Requirements:
-- Minecraft: `>=1.21.11`
-- NeoForge loader: `>=21.11.0`
-- ClothConfig: `>=21.0.0`
+_supports Minecraft 26.2+_
 
 Changes:
-- 1.21.11 support
-
-Links:
-- Modrinth: https://modrinth.com/mod/motor-assistance
-- Cursforge: https://www.curseforge.com/minecraft/mc-mods/aim-assistance
+- updated to Minecraft 26.2
+- cloth config not needed anymore - migrated configuration from Cloth Config JSON5 to NeoForge's native TOML format

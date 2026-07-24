@@ -1,18 +1,14 @@
-## Version 3.0.0 Fabric
+## Version 3.1.0 Fabric
 
-*The mod has been entirely recoded, it will be a lot easier to maintain*
+_supports Minecraft 26.2+_
 
 Requirements:
-- Minecraft: `>=1.21.11`
-- Fabric loader: `>=0.18.0`
-- Cloth config: `>=21.0.0`
+- Fabric loader: `>=0.19.3`
+- Cloth Config API: `>=26.2.155`
+- Fabric API: `*`
 
 Optional:
 - Modmenu: you will be able to edit the config with an interface
 
 Changes:
-- 1.21.11 support
-
-Links:
-- Modrinth: https://modrinth.com/mod/motor-assistance
-- Cursforge: https://www.curseforge.com/minecraft/mc-mods/aim-assistance-fabric
+- updated to Minecraft 26.2

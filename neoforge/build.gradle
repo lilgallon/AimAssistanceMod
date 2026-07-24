@@ -3,8 +3,13 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
+version = rootProject.version
+
 repositories {
-    maven { url "https://maven.shedaniel.me/" } // cloth config
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
 }
 
 neoForge {
@@ -16,22 +21,11 @@ neoForge {
     }
     runs {
         configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
             ideName = "NeoForge ${it.name.capitalize()} (${project.path})"
         }
         client {
             client()
-            gameDirectory = this.mkdir(this.file("runs/client"))
-        }
-        data {
-            clientData()
-            gameDirectory = this.mkdir(this.file("runs/data"))
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
-        server {
-            server()
-            this.file("runs/server").createParentDirectories()
-            gameDirectory = this.mkdir(this.file("runs/server"))
+            gameDirectory = mkdir(file('runs/client'))
         }
     }
     mods {
@@ -40,12 +34,6 @@ neoForge {
         }
     }
 }
-
-dependencies {
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:${neoforge_cloth_config_version}")
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 // Implement mcgradleconventions loader attribute
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
