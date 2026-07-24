@@ -4,7 +4,7 @@ on:
     branches: [ "**" ]
     paths:
       - .github/workflows/build-fabric.yaml
-      - build.gradle.kts
+      - build.gradle
       - gradle.properties
       - gradle/**
       - common/**
@@ -13,7 +13,7 @@ on:
     branches: [ "main" ]
     paths:
       - .github/workflows/build-fabric.yaml
-      - build.gradle.kts
+      - build.gradle
       - gradle.properties
       - gradle/**
       - common/**
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 25
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:

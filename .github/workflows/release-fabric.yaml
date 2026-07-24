@@ -3,7 +3,8 @@ on:
   push:
     tags:
       # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
-      # Example: 2.0.0-MC1.21.x-fabric
+      # Examples: 3.1.0-MC26.2-fabric, 3.0.0-MC1.21.11-fabric
+      - "[0-9]+.[0-9]+.[0-9]+-MC[0-9]+.[0-9x]+-fabric"
       - "[0-9]+.[0-9]+.[0-9]+-MC[0-9]+.[0-9]+.[0-9x]+-fabric"
 
 permissions:
@@ -20,13 +21,40 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 25
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Gradle Build
         run: ./gradlew :fabric:build
-      - name: Release
-        uses: softprops/action-gh-release@v2
+      - name: Read project metadata
+        id: project
+        shell: bash
+        run: echo "minecraft_version=$(sed -n 's/^minecraft_version=//p' gradle.properties)" >> "$GITHUB_OUTPUT"
+      - name: Publish
+        uses: Kira-NT/mc-publish@v3
         with:
-          body_path: CHANGELOG_FABRIC.md
-          files: ./fabric/build/libs/**
+          modrinth-id: PpYYCciX
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-dependencies: |
+            P7dR8mSH(required)
+            9s6osm5g(required)
+            mOgUt4GM(optional)
+
+          curseforge-id: 676747
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-dependencies: |
+            306612(required)
+            348521(required)
+            308702(optional)
+
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-files: fabric/build/libs/*.jar
+
+          files: fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+          name: Motor Assistance ${{ github.ref_name }}
+          version: ${{ github.ref_name }}
+          version-type: release
+          changelog-file: CHANGELOG_FABRIC.md
+          loaders: fabric
+          environment: client
+          game-versions: ${{ steps.project.outputs.minecraft_version }}

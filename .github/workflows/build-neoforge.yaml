@@ -4,20 +4,20 @@ on:
     branches: [ "**" ]
     paths:
       - .github/workflows/build-neoforge.yaml
-      - build.gradle.kts
+      - build.gradle
       - gradle.properties
       - gradle/**
       - common/**
-      - fabric/**
+      - neoforge/**
   push:
     branches: [ "main" ]
     paths:
       - .github/workflows/build-neoforge.yaml
-      - build.gradle.kts
+      - build.gradle
       - gradle.properties
       - gradle/**
       - common/**
-      - fabric/**
+      - neoforge/**
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 25
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
