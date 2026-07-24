@@ -26,6 +26,7 @@ public class MotorAssistanceService {
     private Target target = null;
     private @NotNull TargetType interactingWith = TargetType.NONE;
     private long attackCount = 0;
+    private boolean assisting = false;
 
     public MotorAssistanceService(@NotNull MotorAssistanceConfig config) {
         this.config = config;
@@ -124,6 +125,7 @@ public class MotorAssistanceService {
      * This function will move the player's aim. The faster this function is called, the smoother the aim assistance is.
      */
     public void assistIfPossible() {
+        assisting = false;
         Optional<PlayerService> player = MinecraftService.getPlayer();
         if (player.isEmpty() || !player.get().canInteract()) return;
         if (target == null) return;
@@ -170,9 +172,14 @@ public class MotorAssistanceService {
             }
 
             if (assist) {
+                assisting = !rotation.equals(player.get().getRotation());
                 player.get().setRotation(rotation);
             }
         }
+    }
+
+    public boolean isAssisting() {
+        return assisting;
     }
 
     private Optional<EntityService> computeClosestEntity(EntityService source, List<EntityService> entities) {

@@ -1,6 +1,7 @@
 package dev.gallon.motorassistance.common.domain;
 
 public class MotorAssistanceConfig {
+    private boolean showHudIndicator = true;
     private double fov = 60.0;
     private boolean aimBlock = true;
     private double blockRange = 7.0;
@@ -14,6 +15,14 @@ public class MotorAssistanceConfig {
     private long attackAssistanceDuration = 1100;
     private double attackAimForce = 7.0;
     private boolean stopAttackOnReached = false;
+
+    public boolean getShowHudIndicator() {
+        return showHudIndicator;
+    }
+
+    public void setShowHudIndicator(boolean showHudIndicator) {
+        this.showHudIndicator = showHudIndicator;
+    }
 
     public double getFov() {
         return fov;

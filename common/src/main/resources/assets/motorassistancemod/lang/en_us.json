@@ -7,6 +7,7 @@
   "motorassistancemod.configuration.motorassistancemod.tooltip": "Configure Motor Assistance.",
   "text.autoconfig.motorassistancemod.title": "Motor Assistance Configuration",
   "text.autoconfig.motorassistancemod.option.modConfig": "Configuration",
+  "text.autoconfig.motorassistancemod.option.modConfig.showHudIndicator": "Show aim assistance status",
   "text.autoconfig.motorassistancemod.option.modConfig.fov": "Field of view",
   "text.autoconfig.motorassistancemod.option.modConfig.onlyAssistController": "Only assist when using a controller",
   "text.autoconfig.motorassistancemod.option.modConfig.aimBlock": "Assist when mining",
@@ -21,6 +22,7 @@
   "text.autoconfig.motorassistancemod.option.modConfig.attackAssistanceDuration": "Duration of attacking assistance",
   "text.autoconfig.motorassistancemod.option.modConfig.attackAimForce": "Force of attacking assistance",
   "text.autoconfig.motorassistancemod.option.modConfig.stopAttackOnReached": "Stop assistance when the player aims at the entity",
+  "text.autoconfig.motorassistancemod.option.modConfig.showHudIndicator.tooltip": "Show whether aim assistance is disabled, ready, or currently assisting.",
   "text.autoconfig.motorassistancemod.option.modConfig.fov.tooltip": "Field of view in which aim assistance can acquire a target.",
   "text.autoconfig.motorassistancemod.option.modConfig.aimBlock.tooltip": "Enable aim assistance while mining blocks.",
   "text.autoconfig.motorassistancemod.option.modConfig.blockRange.tooltip": "Maximum block targeting distance.",
@@ -33,5 +35,8 @@
   "text.autoconfig.motorassistancemod.option.modConfig.attackInteractionDuration.tooltip": "Interaction duration in milliseconds before attack assistance starts.",
   "text.autoconfig.motorassistancemod.option.modConfig.attackAssistanceDuration.tooltip": "Maximum attack assistance duration in milliseconds.",
   "text.autoconfig.motorassistancemod.option.modConfig.attackAimForce.tooltip": "Strength of attack aim assistance.",
-  "text.autoconfig.motorassistancemod.option.modConfig.stopAttackOnReached.tooltip": "Stop attack assistance once the targeted entity is reached."
+  "text.autoconfig.motorassistancemod.option.modConfig.stopAttackOnReached.tooltip": "Stop attack assistance once the targeted entity is reached.",
+  "motorassistancemod.hud.disabled": "Aim assist · Off",
+  "motorassistancemod.hud.ready": "Aim assist · Ready",
+  "motorassistancemod.hud.assisting": "Aim assist · Assisting"
 }

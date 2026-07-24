@@ -12,3 +12,4 @@ Optional:
 
 Changes:
 - updated to Minecraft 26.2
+- added an optional HUD indicator showing whether aim assistance is off, ready, or actively assisting

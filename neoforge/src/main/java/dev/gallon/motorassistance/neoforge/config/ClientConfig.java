@@ -4,6 +4,7 @@ import dev.gallon.motorassistance.common.domain.ModMetadata;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class ClientConfig {
+    public final ModConfigSpec.BooleanValue showHudIndicator;
     public final ModConfigSpec.DoubleValue fov;
     public final ModConfigSpec.BooleanValue aimBlock;
     public final ModConfigSpec.DoubleValue blockRange;
@@ -21,6 +22,10 @@ public final class ClientConfig {
     public ClientConfig(ModConfigSpec.Builder builder) {
         builder.push(ModMetadata.MOD_ID);
 
+        showHudIndicator = builder
+                .comment("Show the current aim assistance status in the HUD.")
+                .translation(translationKey("showHudIndicator"))
+                .define("showHudIndicator", true);
         fov = builder
                 .comment("Field of view in which aim assistance can acquire a target.")
                 .translation(translationKey("fov"))

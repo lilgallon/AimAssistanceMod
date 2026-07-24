@@ -31,6 +31,7 @@ public final class TheModConfig {
     }
 
     public static void bakeConfig() {
+        config.setShowHudIndicator(CLIENT.showHudIndicator.get());
         config.setFov(CLIENT.fov.get());
         config.setAimBlock(CLIENT.aimBlock.get());
         config.setBlockRange(CLIENT.blockRange.get());
