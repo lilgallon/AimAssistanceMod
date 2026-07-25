@@ -1,8 +1,6 @@
-## Version 3.1.0 NeoForge
+## Version 3.1.1 NeoForge
 
 _supports Minecraft 26.2+_
 
 Changes:
-- updated to Minecraft 26.2
-- cloth config not needed anymore - migrated configuration from Cloth Config JSON5 to NeoForge's native TOML format
-- added an optional HUD indicator showing whether aim assistance is off, ready, or actively assisting
+- Invalid or outdated configuration entries are now reset to their default values instead of crashing the game or silently using invalid primitive values.

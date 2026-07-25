@@ -1,4 +1,4 @@
-## Version 3.1.0 Fabric
+## Version 3.1.1 Fabric
 
 _supports Minecraft 26.2+_
 
@@ -11,5 +11,4 @@ Optional:
 - Modmenu: you will be able to edit the config with an interface
 
 Changes:
-- updated to Minecraft 26.2
-- added an optional HUD indicator showing whether aim assistance is off, ready, or actively assisting
+- Invalid or outdated configuration entries are now reset to their default values instead of crashing the game or silently using invalid primitive values.
