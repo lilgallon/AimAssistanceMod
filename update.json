@@ -11,7 +11,9 @@
     "3.0.0": "recoded from scratch, support for most controller mods"
   },
   "26.2": {
-    "3.1.0": "Minecraft 26.2 support and native NeoForge configuration"
+    "3.1.0": "Minecraft 26.2 support and native NeoForge configuration",
+    "3.1.1": "Safer handling of invalid and outdated configuration entries",
+    "3.1.2": "Anti-crash hardening, bounded configuration values and Minecraft 26.2.x compatibility"
   },
   "promos": {
     "1.19.4-latest": "1.0.0",
@@ -20,7 +22,7 @@
     "1.20.1-recommended": "2.1.0",
     "1.21.1-latest": "3.0.0",
     "1.21.1-recommended": "3.0.0",
-    "26.2-latest": "3.1.0",
-    "26.2-recommended": "3.1.0"
+    "26.2-latest": "3.1.2",
+    "26.2-recommended": "3.1.2"
   }
 }

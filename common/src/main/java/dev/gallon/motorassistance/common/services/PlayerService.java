@@ -17,9 +17,13 @@ public class PlayerService extends EntityService {
         super(entity);
     }
 
-    public void setRotation(Rotation rotation) {
+    public boolean setRotation(Rotation rotation) {
+        if (!rotation.isFinite()) {
+            return false;
+        }
         this.entity.setXRot(rotation.pitch());
         this.entity.setYRot(rotation.yaw());
+        return true;
     }
 
     public boolean canInteract() {
@@ -41,6 +45,7 @@ public class PlayerService extends EntityService {
                         )
                 )
                 .stream()
+                .filter(Mob::isAlive)
                 .map(EntityService::new)
                 .toList();
     }

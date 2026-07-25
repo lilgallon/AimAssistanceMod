@@ -3,6 +3,18 @@ package dev.gallon.motorassistance.common.domain;
 import java.util.Objects;
 
 public class MotorAssistanceConfig {
+    public static final double MIN_FOV = 0.0;
+    public static final double MAX_FOV = 180.0;
+    public static final double MIN_RANGE = 0.0;
+    public static final double MAX_RANGE = 64.0;
+    public static final double MIN_AIM_FORCE = 0.0;
+    public static final double MAX_AIM_FORCE = 100.0;
+    public static final double MIN_ATTACK_INTERACTION_SPEED = 0.0;
+    public static final double MAX_ATTACK_INTERACTION_SPEED = 100.0;
+    public static final long MIN_DURATION = 0L;
+    public static final long MIN_ATTACK_INTERACTION_DURATION = 1L;
+    public static final long MAX_DURATION = 60_000L;
+
     private static final Boolean DEFAULT_SHOW_HUD_INDICATOR = true;
     private static final Double DEFAULT_FOV = 60.0;
     private static final Boolean DEFAULT_AIM_BLOCK = true;
@@ -42,11 +54,11 @@ public class MotorAssistanceConfig {
     }
 
     public double getFov() {
-        return Objects.requireNonNullElse(fov, DEFAULT_FOV);
+        return sanitizeDouble(fov, DEFAULT_FOV, MIN_FOV, MAX_FOV);
     }
 
     public void setFov(Double fov) {
-        this.fov = Objects.requireNonNullElse(fov, DEFAULT_FOV);
+        this.fov = sanitizeDouble(fov, DEFAULT_FOV, MIN_FOV, MAX_FOV);
     }
 
     public boolean getAimBlock() {
@@ -58,41 +70,60 @@ public class MotorAssistanceConfig {
     }
 
     public double getBlockRange() {
-        return Objects.requireNonNullElse(blockRange, DEFAULT_BLOCK_RANGE);
+        return sanitizeDouble(blockRange, DEFAULT_BLOCK_RANGE, MIN_RANGE, MAX_RANGE);
     }
 
     public void setBlockRange(Double blockRange) {
-        this.blockRange = Objects.requireNonNullElse(blockRange, DEFAULT_BLOCK_RANGE);
+        this.blockRange = sanitizeDouble(blockRange, DEFAULT_BLOCK_RANGE, MIN_RANGE, MAX_RANGE);
     }
 
     public long getMiningInteractionDuration() {
-        return Objects.requireNonNullElse(miningInteractionDuration, DEFAULT_MINING_INTERACTION_DURATION);
+        return sanitizeLong(
+                miningInteractionDuration,
+                DEFAULT_MINING_INTERACTION_DURATION,
+                MIN_DURATION,
+                MAX_DURATION
+        );
     }
 
     public void setMiningInteractionDuration(Long miningInteractionDuration) {
-        this.miningInteractionDuration = Objects.requireNonNullElse(
+        this.miningInteractionDuration = sanitizeLong(
                 miningInteractionDuration,
-                DEFAULT_MINING_INTERACTION_DURATION
+                DEFAULT_MINING_INTERACTION_DURATION,
+                MIN_DURATION,
+                MAX_DURATION
         );
     }
 
     public long getMiningAssistanceDuration() {
-        return Objects.requireNonNullElse(miningAssistanceDuration, DEFAULT_MINING_ASSISTANCE_DURATION);
+        return sanitizeLong(
+                miningAssistanceDuration,
+                DEFAULT_MINING_ASSISTANCE_DURATION,
+                MIN_DURATION,
+                MAX_DURATION
+        );
     }
 
     public void setMiningAssistanceDuration(Long miningAssistanceDuration) {
-        this.miningAssistanceDuration = Objects.requireNonNullElse(
+        this.miningAssistanceDuration = sanitizeLong(
                 miningAssistanceDuration,
-                DEFAULT_MINING_ASSISTANCE_DURATION
+                DEFAULT_MINING_ASSISTANCE_DURATION,
+                MIN_DURATION,
+                MAX_DURATION
         );
     }
 
     public double getMiningAimForce() {
-        return Objects.requireNonNullElse(miningAimForce, DEFAULT_MINING_AIM_FORCE);
+        return sanitizeDouble(miningAimForce, DEFAULT_MINING_AIM_FORCE, MIN_AIM_FORCE, MAX_AIM_FORCE);
     }
 
     public void setMiningAimForce(Double miningAimForce) {
-        this.miningAimForce = Objects.requireNonNullElse(miningAimForce, DEFAULT_MINING_AIM_FORCE);
+        this.miningAimForce = sanitizeDouble(
+                miningAimForce,
+                DEFAULT_MINING_AIM_FORCE,
+                MIN_AIM_FORCE,
+                MAX_AIM_FORCE
+        );
     }
 
     public boolean getAimEntity() {
@@ -104,52 +135,78 @@ public class MotorAssistanceConfig {
     }
 
     public double getEntityRange() {
-        return Objects.requireNonNullElse(entityRange, DEFAULT_ENTITY_RANGE);
+        return sanitizeDouble(entityRange, DEFAULT_ENTITY_RANGE, MIN_RANGE, MAX_RANGE);
     }
 
     public void setEntityRange(Double entityRange) {
-        this.entityRange = Objects.requireNonNullElse(entityRange, DEFAULT_ENTITY_RANGE);
+        this.entityRange = sanitizeDouble(entityRange, DEFAULT_ENTITY_RANGE, MIN_RANGE, MAX_RANGE);
     }
 
     public double getAttackInteractionSpeed() {
-        return Objects.requireNonNullElse(attackInteractionSpeed, DEFAULT_ATTACK_INTERACTION_SPEED);
+        return sanitizeDouble(
+                attackInteractionSpeed,
+                DEFAULT_ATTACK_INTERACTION_SPEED,
+                MIN_ATTACK_INTERACTION_SPEED,
+                MAX_ATTACK_INTERACTION_SPEED
+        );
     }
 
     public void setAttackInteractionSpeed(Double attackInteractionSpeed) {
-        this.attackInteractionSpeed = Objects.requireNonNullElse(
+        this.attackInteractionSpeed = sanitizeDouble(
                 attackInteractionSpeed,
-                DEFAULT_ATTACK_INTERACTION_SPEED
+                DEFAULT_ATTACK_INTERACTION_SPEED,
+                MIN_ATTACK_INTERACTION_SPEED,
+                MAX_ATTACK_INTERACTION_SPEED
         );
     }
 
     public long getAttackInteractionDuration() {
-        return Objects.requireNonNullElse(attackInteractionDuration, DEFAULT_ATTACK_INTERACTION_DURATION);
+        return sanitizeLong(
+                attackInteractionDuration,
+                DEFAULT_ATTACK_INTERACTION_DURATION,
+                MIN_ATTACK_INTERACTION_DURATION,
+                MAX_DURATION
+        );
     }
 
     public void setAttackInteractionDuration(Long attackInteractionDuration) {
-        this.attackInteractionDuration = Objects.requireNonNullElse(
+        this.attackInteractionDuration = sanitizeLong(
                 attackInteractionDuration,
-                DEFAULT_ATTACK_INTERACTION_DURATION
+                DEFAULT_ATTACK_INTERACTION_DURATION,
+                MIN_ATTACK_INTERACTION_DURATION,
+                MAX_DURATION
         );
     }
 
     public long getAttackAssistanceDuration() {
-        return Objects.requireNonNullElse(attackAssistanceDuration, DEFAULT_ATTACK_ASSISTANCE_DURATION);
+        return sanitizeLong(
+                attackAssistanceDuration,
+                DEFAULT_ATTACK_ASSISTANCE_DURATION,
+                MIN_DURATION,
+                MAX_DURATION
+        );
     }
 
     public void setAttackAssistanceDuration(Long attackAssistanceDuration) {
-        this.attackAssistanceDuration = Objects.requireNonNullElse(
+        this.attackAssistanceDuration = sanitizeLong(
                 attackAssistanceDuration,
-                DEFAULT_ATTACK_ASSISTANCE_DURATION
+                DEFAULT_ATTACK_ASSISTANCE_DURATION,
+                MIN_DURATION,
+                MAX_DURATION
         );
     }
 
     public double getAttackAimForce() {
-        return Objects.requireNonNullElse(attackAimForce, DEFAULT_ATTACK_AIM_FORCE);
+        return sanitizeDouble(attackAimForce, DEFAULT_ATTACK_AIM_FORCE, MIN_AIM_FORCE, MAX_AIM_FORCE);
     }
 
     public void setAttackAimForce(Double attackAimForce) {
-        this.attackAimForce = Objects.requireNonNullElse(attackAimForce, DEFAULT_ATTACK_AIM_FORCE);
+        this.attackAimForce = sanitizeDouble(
+                attackAimForce,
+                DEFAULT_ATTACK_AIM_FORCE,
+                MIN_AIM_FORCE,
+                MAX_AIM_FORCE
+        );
     }
 
     public boolean getStopAttackOnReached() {
@@ -181,5 +238,19 @@ public class MotorAssistanceConfig {
         setAttackAssistanceDuration(attackAssistanceDuration);
         setAttackAimForce(attackAimForce);
         setStopAttackOnReached(stopAttackOnReached);
+    }
+
+    private static double sanitizeDouble(Double value, double defaultValue, double min, double max) {
+        if (value == null || !Double.isFinite(value)) {
+            return defaultValue;
+        }
+        return Math.max(min, Math.min(max, value));
+    }
+
+    private static long sanitizeLong(Long value, long defaultValue, long min, long max) {
+        if (value == null) {
+            return defaultValue;
+        }
+        return Math.max(min, Math.min(max, value));
     }
 }

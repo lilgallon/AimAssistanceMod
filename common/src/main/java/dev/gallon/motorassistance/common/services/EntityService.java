@@ -25,6 +25,12 @@ public class EntityService implements Target {
         return new Rotation(entity.getXRot(), entity.getYRot());
     }
 
+    boolean isValidTarget(EntityService source) {
+        return entity.isAlive()
+                && !entity.isRemoved()
+                && entity.level() == source.entity.level();
+    }
+
     @Override
     public Position getPosition() {
         return new Position(entity.getX(), entity.getY(), entity.getZ());

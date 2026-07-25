@@ -11,6 +11,10 @@ public record Rotation(float pitch, float yaw) {
         return new Rotation(this.pitch + other.pitch, this.yaw + other.yaw);
     }
 
+    public boolean isFinite() {
+        return Float.isFinite(pitch) && Float.isFinite(yaw);
+    }
+
     @Override
     public String toString() {
         return "pitch=" + pitch + " yaw=" + yaw;

@@ -43,3 +43,7 @@ tasks.named('sourcesJar', Jar) {
     dependsOn(configurations.commonResources)
     from(configurations.commonResources)
 }
+
+tasks.named('check') {
+    dependsOn(project(':common').tasks.named('test'))
+}

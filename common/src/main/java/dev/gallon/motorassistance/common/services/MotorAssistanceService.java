@@ -40,13 +40,14 @@ public class MotorAssistanceService {
         if (player.isEmpty() || !player.get().canInteract()) return;
 
         switch (interactingWith) {
-            case TargetType.ENTITY -> computeClosestEntity(
+            case TargetType.ENTITY -> target = computeClosestEntity(
                     player.get(),
                     player.get().findMobsAroundPlayer(config.getEntityRange())
-            ).ifPresent(entityService -> target = entityService);
-            case TargetType.BLOCK -> MinecraftService
+            ).orElse(null);
+            case TargetType.BLOCK -> target = MinecraftService
                     .getPointedBlock(config.getBlockRange())
-                    .ifPresent(pointedBlock -> target = pointedBlock);
+                    .orElse(null);
+            case TargetType.NONE -> target = null;
         }
     }
 
@@ -57,6 +58,11 @@ public class MotorAssistanceService {
     public void analyseBehavior() {
         Optional<PlayerService> player = MinecraftService.getPlayer();
         if (player.isEmpty() || !player.get().canInteract()) return;
+
+        if ((interactingWith == TargetType.BLOCK && !config.getAimBlock())
+                || (interactingWith == TargetType.ENTITY && !config.getAimEntity())) {
+            resetInteraction();
+        }
 
         // Common
         boolean attackKeyPressed = MinecraftService.attackKeyPressed();
@@ -115,9 +121,7 @@ public class MotorAssistanceService {
         };
 
         if (interactingWith != TargetType.NONE && interactionTimer.timeElapsed(duration)) {
-            target = null;
-            interactingWith = TargetType.NONE;
-            interactionTimer.stop();
+            resetInteraction();
         }
     }
 
@@ -129,6 +133,10 @@ public class MotorAssistanceService {
         Optional<PlayerService> player = MinecraftService.getPlayer();
         if (player.isEmpty() || !player.get().canInteract()) return;
         if (target == null) return;
+        if (target instanceof EntityService entityTarget && !entityTarget.isValidTarget(player.get())) {
+            resetInteraction();
+            return;
+        }
 
         if (interactingWith != TargetType.NONE) {
             float aimForce = (float) (interactingWith == TargetType.BLOCK ?
@@ -172,8 +180,10 @@ public class MotorAssistanceService {
             }
 
             if (assist) {
-                assisting = !rotation.equals(player.get().getRotation());
-                player.get().setRotation(rotation);
+                Rotation currentRotation = player.get().getRotation();
+                assisting = rotation.isFinite()
+                        && !rotation.equals(currentRotation)
+                        && player.get().setRotation(rotation);
             }
         }
     }
@@ -186,6 +196,7 @@ public class MotorAssistanceService {
         return entities
                 .stream()
                 .map(entity -> new AbstractMap.SimpleEntry<>(entity, computeSmallestRotationBetween(source, entity)))
+                .filter(entry -> entry.getValue().isFinite())
                 .min(Comparator.comparingDouble(entry -> {
                     Rotation rotation = entry.getValue();
                     double distYaw = Math.abs(wrapDegrees(rotation.yaw() - source.getRotation().yaw()));
@@ -245,11 +256,22 @@ public class MotorAssistanceService {
             double fovY,
             Rotation step
     ) {
-        Rotation rotation = switch (target) {
-            case BlockService b -> computeRotationBetween(source.getEyesPosition(), b.getFacePosition());
-            case EntityService e -> computeSmallestRotationBetween(source, e);
-            default -> throw new IllegalStateException("Unexpected target: " + target);
-        };
+        Rotation currentRotation = source.getRotation();
+        if (!currentRotation.isFinite() || !step.isFinite()) {
+            return currentRotation;
+        }
+
+        Rotation rotation;
+        if (target instanceof BlockService block) {
+            rotation = computeRotationBetween(source.getEyesPosition(), block.getFacePosition());
+        } else if (target instanceof EntityService entity) {
+            rotation = computeSmallestRotationBetween(source, entity);
+        } else {
+            return currentRotation;
+        }
+        if (!rotation.isFinite()) {
+            return currentRotation;
+        }
 
         // We check if the entity is within the FOV of the player
         // yaw and pitch are MathHelper.absolute, not relative to anything. We fix that by calling wrapDegrees and subtracting
@@ -262,11 +284,21 @@ public class MotorAssistanceService {
         // to get closer to the targeted entity. We will use the given stepX and stepY to compute that. Dividing by 100
         // reduces that step. Without that, we would need to show very low values to the user in the GUI, which is not
         // user-friendly. That way, instead of showing 0.05, we show 5.
-        Rotation currentRotation = source.getRotation();
         Rotation incrementRotation = new Rotation(
                 ((wrapDegrees(rotation.pitch() - currentRotation.pitch())) * step.pitch()) / 100,
                 ((wrapDegrees(rotation.yaw() - currentRotation.yaw())) * step.yaw()) / 100
         );
-        return inFovX && inFovY ? currentRotation.plus(incrementRotation) : currentRotation;
+        Rotation assistedRotation = currentRotation.plus(incrementRotation);
+        return inFovX && inFovY && assistedRotation.isFinite() ? assistedRotation : currentRotation;
+    }
+
+    private void resetInteraction() {
+        target = null;
+        interactingWith = TargetType.NONE;
+        interactionTimer.stop();
+        miningTimer.stop();
+        attackTimer.stop();
+        attackCount = 0;
+        assisting = false;
     }
 }
