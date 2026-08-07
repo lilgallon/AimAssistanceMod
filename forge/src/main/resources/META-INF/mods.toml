@@ -6,7 +6,7 @@ issueTrackerURL = "https://github.com/lilmods/aim-assistance/issues"
 
 [[mods]]
 modId = "motorassistance"
-version = "2.1.0"
+version = "2.1.1"
 displayName = "MotorAssistance"
 authors = "lilgallon"
 description = '''

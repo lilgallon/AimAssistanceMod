@@ -1,3 +1,9 @@
+#### v2.1.1 for Minecraft 1.20.1
+
+**Changes**:
+- Follow Controllable's configured attack binding instead of the physical right trigger
+- Fix right-stick movement detection while aim assistance is active
+
 #### v2.1.0 for Minecraft 1.20.1
 
 **Prerequisites**:

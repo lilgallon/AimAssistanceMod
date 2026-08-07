@@ -8,21 +8,21 @@ const val minecraftVersion = "1.20.1"
 // Mod
 const val modId = "motorassistance"
 const val modGroup = "dev.gallon.$modId"
-const val commonVersion = "2.1.0"
+const val commonVersion = "2.1.1"
 
 // Forge - also update mods.toml
 const val kotlinForForge = "4.4.0" // https://github.com/thedarkcolour/KotlinForForge
 const val kotlinGradlePlugin = kotlinVersion
 const val forgeVersion = "47.1.0" // https://files.minecraftforge.net/net/minecraftforge/forge
 const val forgeGradlePlugin = "[6.0,6.2)" // https://files.minecraftforge.net/net/minecraftforge/gradle/ForgeGradle/
-const val forgeModVersion = "2.1.0-MC$minecraftVersion"
+const val forgeModVersion = "2.1.1-MC$minecraftVersion"
 
 // Fabric - also update fabric.mod.json
 // 1.2+ requires gradle 8, forge is not yet compatible
 const val loomVersion = "1.3-SNAPSHOT" // https://github.com/FabricMC/fabric-example-mod
 const val yarnMappings = "$minecraftVersion+build.9" // https://fabricmc.net/develop/
 const val loaderVersion = "0.14.21" // https://fabricmc.net/develop/
-const val fabricModVersion = "2.1.0-MC$minecraftVersion"
+const val fabricModVersion = "2.1.1-MC$minecraftVersion"
 
 // External dependencies
 
