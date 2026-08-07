@@ -1,6 +1,8 @@
 package dev.gallon.motorassistance.fabric.adapters
 
 import com.mrcrayfish.controllable.Controllable
+import com.mrcrayfish.controllable.client.binding.ButtonBindings
+import dev.gallon.motorassistance.common.domain.ButtonPressTracker
 import dev.gallon.motorassistance.common.domain.CONTROLLABLE_MOD_ID
 import dev.gallon.motorassistance.common.interfaces.Input
 import dev.gallon.motorassistance.fabric.events.LeftMouseClickEvent
@@ -15,7 +17,7 @@ class FabricInputAdapter : Input {
     private var leftClicked = false
     private var prevX = -1.0
     private var prevY = -1.0
-    private var lastTriggerValue = 0.0
+    private val controllerAttack = ButtonPressTracker()
 
     init {
         SingleEventBus.register<MouseMoveEvent> { moved = true }
@@ -37,13 +39,14 @@ class FabricInputAdapter : Input {
             if (prevX != -1.0 && prevY != -1.0 && !moved) {
                 moved = prevX != currX || prevY != currY
             }
+            prevX = currX
+            prevY = currY
 
-            // Check controller trigger click
-            if (isControllerUsed() && !leftClicked) {
-                leftClicked = lastTriggerValue == 0.0 &&
-                    Controllable.getController()?.run { rTriggerValue > 0.0F } ?: false
-                lastTriggerValue = Controllable.getController()?.rTriggerValue?.toDouble() ?: 0.0
-            }
+            // Follow Controllable's configured attack action instead of a hard-coded trigger.
+            val controllerAttackClicked = whenModLoaded(CONTROLLABLE_MOD_ID) {
+                controllerAttack.update(ButtonBindings.ATTACK.isButtonDown)
+            } ?: false
+            leftClicked = leftClicked || controllerAttackClicked
         }
     }
 

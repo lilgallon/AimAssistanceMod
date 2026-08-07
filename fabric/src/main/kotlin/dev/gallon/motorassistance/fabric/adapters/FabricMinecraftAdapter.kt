@@ -1,6 +1,6 @@
 package dev.gallon.motorassistance.fabric.adapters
 
-import com.mrcrayfish.controllable.Controllable
+import com.mrcrayfish.controllable.client.binding.ButtonBindings
 import dev.gallon.motorassistance.common.domain.CONTROLLABLE_MOD_ID
 import dev.gallon.motorassistance.common.interfaces.Block
 import dev.gallon.motorassistance.common.interfaces.Minecraft
@@ -22,7 +22,7 @@ class FabricMinecraftAdapter(
     override fun attackKeyPressed(): Boolean =
         minecraft.options.keyAttack.isDown ||
             whenModLoaded(CONTROLLABLE_MOD_ID) {
-                Controllable.getController()?.run { rTriggerValue > 0.0F }
+                ButtonBindings.ATTACK.isButtonDown
             } ?: false
 
     override fun playerAimingMob(): Boolean =

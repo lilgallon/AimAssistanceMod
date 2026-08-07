@@ -1,6 +1,8 @@
 package dev.gallon.motorassistance.forge.adapters
 
 import com.mrcrayfish.controllable.Controllable
+import com.mrcrayfish.controllable.client.binding.ButtonBindings
+import dev.gallon.motorassistance.common.domain.ButtonPressTracker
 import dev.gallon.motorassistance.common.domain.CONTROLLABLE_MOD_ID
 import dev.gallon.motorassistance.common.interfaces.Input
 import dev.gallon.motorassistance.forge.utils.whenModLoaded
@@ -15,22 +17,20 @@ class ForgeInputAdapter : Input {
     private var leftClicked = false
     private var prevX = -1.0
     private var prevY = -1.0
-    private var lastTriggerValue = 0.0
+    private val controllerAttack = ButtonPressTracker()
 
     @SubscribeEvent
     fun onClientTick(clientTickEvent: TickEvent.ClientTickEvent) {
         checkForMoveInput()
-
-        if (isControllerUsed() && !leftClicked) {
-            leftClicked = lastTriggerValue == 0.0 &&
-                Controllable.getController()?.run { rTriggerValue > 0.0F } ?: false
-            lastTriggerValue = Controllable.getController()?.rTriggerValue?.toDouble() ?: 0.0
-        }
+        val controllerAttackClicked = whenModLoaded(CONTROLLABLE_MOD_ID) {
+            controllerAttack.update(ButtonBindings.ATTACK.isButtonDown)
+        } ?: false
+        leftClicked = leftClicked || controllerAttackClicked
     }
 
     @SubscribeEvent
     fun onMouseButtonClicked(mouseEvent: InputEvent.MouseButton.Post) {
-        if (mouseEvent.button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+        if (mouseEvent.button == GLFW.GLFW_MOUSE_BUTTON_LEFT && mouseEvent.action == GLFW.GLFW_PRESS) {
             leftClicked = true
         }
     }
@@ -51,6 +51,8 @@ class ForgeInputAdapter : Input {
         if (prevX != -1.0 && prevY != -1.0 && !moved) {
             moved = prevX != currX || prevY != currY
         }
+        prevX = currX
+        prevY = currY
     }
 
     override fun wasAttackClicked(): Boolean = leftClicked.also { leftClicked = false }
