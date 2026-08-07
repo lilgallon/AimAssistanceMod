@@ -13,23 +13,44 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - name: build
-        uses: gradle/gradle-build-action@v2
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Gradle Build
+        run: ./gradlew :fabric:build
+      - name: Publish
+        uses: Kira-NT/mc-publish@v3
         with:
-          gradle-version: 8.1.1
-          build-root-directory: fabric
-          arguments: build
-          cache-read-only: true
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG-fabric.md
-          files: ./fabric/build/libs/**
+          modrinth-id: PpYYCciX
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-dependencies: |
+            fabric-language-kotlin(required)
+            9s6osm5g(required)
+            mOgUt4GM(optional)
+
+          curseforge-id: 676747
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-dependencies: |
+            308769(required)
+            348521(required)
+            308702(optional)
+            317269(optional)
+
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-files: fabric/build/libs/*.jar
+
+          files: fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+          name: Motor Assistance ${{ github.ref_name }}
+          version: ${{ github.ref_name }}
+          version-type: release
+          changelog-file: CHANGELOG-fabric.md
+          loaders: fabric
+          environment: client
+          game-versions: 1.20.1
