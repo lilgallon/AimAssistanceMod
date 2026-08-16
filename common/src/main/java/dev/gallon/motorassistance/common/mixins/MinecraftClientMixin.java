@@ -14,17 +14,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 public class MinecraftClientMixin {
 
-    @Inject(method = "runTick(Z)V", at = @At("HEAD"))
+    @Inject(method = "runTick(Z)V", at = @At("HEAD"), remap = false)
     private void renderEvent(boolean tick, CallbackInfo ci) {
         SingleEventBus.publish(new RenderEvent());
     }
 
-    @Inject(method = "tick()V", at = @At("TAIL"))
+    @Inject(method = "tick()V", at = @At("TAIL"), remap = false)
     private void tickEvent(CallbackInfo info) {
         SingleEventBus.publish(new TickEvent());
     }
 
-    @Inject(method = "startAttack()Z", at = @At("HEAD"))
+    @Inject(method = "startAttack()Z", at = @At("HEAD"), remap = false)
     private void onStartAttack(CallbackInfoReturnable<Boolean> cir) {
         SingleEventBus.publish(new AttackEvent());
     }

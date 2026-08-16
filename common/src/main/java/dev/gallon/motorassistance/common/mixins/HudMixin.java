@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Hud.class)
 public abstract class HudMixin {
-    @Shadow
+    @Shadow(remap = false)
     public abstract boolean isHidden();
 
-    @Inject(method = "extractRenderState", at = @At("TAIL"))
+    @Inject(method = "extractRenderState", at = @At("TAIL"), remap = false)
     private void extractAssistanceIndicator(
             GuiGraphicsExtractor graphics,
             DeltaTracker deltaTracker,

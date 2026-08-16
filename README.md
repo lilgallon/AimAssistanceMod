@@ -9,14 +9,22 @@ not used to play on a computer. Everything is configurable. Ideal to introduce M
 
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/build-fabric.yaml?style=for-the-badge&logo=gradle&label=fabric%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/release-fabric.yaml?style=for-the-badge&logo=flatpak&logoColor=white&label=fabric%20release)
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/build-neoforge.yaml?style=for-the-badge&logo=gradle&label=forge%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/release-neoforge.yaml?style=for-the-badge&logo=flatpak&logoColor=white&label=forge%20release)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/build-forge.yaml?style=for-the-badge&logo=gradle&label=forge%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/release-forge.yaml?style=for-the-badge&logo=flatpak&logoColor=white&label=forge%20release)
+
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/build-neoforge.yaml?style=for-the-badge&logo=gradle&label=neoforge%20build)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lilgallon/AimAssistanceMod/release-neoforge.yaml?style=for-the-badge&logo=flatpak&logoColor=white&label=neoforge%20release)
 
 **Downloads**
 
 ![github downloads](https://img.shields.io/github/downloads/lilgallon/aimassistancemod/total.svg?label=Github%20downloads%20(old%20repo)&logo=github&style=for-the-badge)![Modrinth Downloads](https://img.shields.io/modrinth/dt/motor-assistance?style=for-the-badge&logo=modrinth&logoColor=white&label=modrinth%20downloads)
 
-- forge: [![curseforge downloads](http://cf.way2muchnoise.eu/full_399201_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aim-assistance)
-- fabric: [![curseforge downloads](http://cf.way2muchnoise.eu/full_676747_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aim-assistance-fabric)
+- Forge/NeoForge: [![curseforge downloads](http://cf.way2muchnoise.eu/full_399201_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aim-assistance)
+- Fabric: [![curseforge downloads](http://cf.way2muchnoise.eu/full_676747_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aim-assistance-fabric)
+
+**Supported loaders**
+
+- Fabric, Forge and NeoForge for Minecraft 26.2.x.
+- Fabric uses Cloth Config and Mod Menu for its configuration screen.
+- Forge and NeoForge use native client configuration; Forge also exposes a scrollable in-game screen from the mods list.
 
 **Screenshots**
 

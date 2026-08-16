@@ -5,8 +5,10 @@ on:
     paths:
       - .github/workflows/build-neoforge.yaml
       - build.gradle
+      - settings.gradle
       - gradle.properties
       - gradle/**
+      - buildSrc/**
       - common/**
       - neoforge/**
   push:
@@ -14,8 +16,10 @@ on:
     paths:
       - .github/workflows/build-neoforge.yaml
       - build.gradle
+      - settings.gradle
       - gradle.properties
       - gradle/**
+      - buildSrc/**
       - common/**
       - neoforge/**
 

@@ -1,27 +1,29 @@
-name: build fabric
+name: build forge
 on:
   pull_request:
     branches: [ "**" ]
     paths:
-      - .github/workflows/build-fabric.yaml
+      - .github/workflows/build-forge.yaml
+      - .github/scripts/**
       - build.gradle
       - settings.gradle
       - gradle.properties
       - gradle/**
       - buildSrc/**
       - common/**
-      - fabric/**
+      - forge/**
   push:
     branches: [ "main" ]
     paths:
-      - .github/workflows/build-fabric.yaml
+      - .github/workflows/build-forge.yaml
+      - .github/scripts/**
       - build.gradle
       - settings.gradle
       - gradle.properties
       - gradle/**
       - buildSrc/**
       - common/**
-      - fabric/**
+      - forge/**
 
 jobs:
   build:
@@ -40,10 +42,19 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
       - name: Gradle Build
-        run: ./gradlew :fabric:build
+        run: ./gradlew :forge:build
+      - name: Install virtual display
+        if: ${{ runner.os == 'Linux' }}
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+      - name: Forge client smoke test
+        if: ${{ runner.os == 'Linux' }}
+        run: bash .github/scripts/smoke-run.sh forge client
+      - name: Forge server smoke test
+        if: ${{ runner.os == 'Linux' }}
+        run: bash .github/scripts/smoke-run.sh forge server
       - name: capture build artifacts
         if: ${{ runner.os == 'Linux' }}
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts
-          path: fabric/build/libs/
+          path: forge/build/libs/

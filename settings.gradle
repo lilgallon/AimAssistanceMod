@@ -28,6 +28,10 @@ pluginManagement {
             name = 'NeoForged'
             url = uri('https://maven.neoforged.net/releases')
         }
+        maven {
+            name = 'MinecraftForge'
+            url = uri('https://maven.minecraftforge.net')
+        }
     }
 }
 
@@ -39,4 +43,5 @@ rootProject.name = 'aimassistancemod'
 
 include 'common'
 include 'fabric'
+include 'forge'
 include 'neoforge'

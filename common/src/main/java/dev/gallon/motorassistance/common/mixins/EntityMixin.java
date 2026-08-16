@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
 public class EntityMixin {
-    @Inject(method = "turn(DD)V", at = @At("HEAD"))
+    @Inject(method = "turn(DD)V", at = @At("HEAD"), remap = false)
     private void onTurn(double d, double e, CallbackInfo ci) {
         if ((Entity) (Object) this == Minecraft.getInstance().player) {
             SingleEventBus.publish(new PlayerTurnEvent(d, e));
