@@ -9,7 +9,7 @@ version="${version}"
 displayName="${mod_name}"
 authors="${mod_author}"
 description="${description}"
-logoFile= "${mod_id}.png"
+iconFile= "${mod_id}.png"
 updateJSONURL="${mod_update_json}"
 displayURL="${mod_display_url}"
 

@@ -28,7 +28,7 @@ jobs:
       - name: Read project metadata
         id: project
         shell: bash
-        run: echo "minecraft_version=$(sed -n 's/^minecraft_version=//p' gradle.properties)" >> "$GITHUB_OUTPUT"
+        run: echo "minecraft_version=$(sed -n 's/^forge_minecraft_version=//p' gradle.properties)" >> "$GITHUB_OUTPUT"
       - name: Publish
         uses: Kira-NT/mc-publish@v3
         with:

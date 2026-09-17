@@ -15,6 +15,9 @@
     "3.1.1": "Safer handling of invalid and outdated configuration entries",
     "3.1.2": "Anti-crash hardening, bounded configuration values and Minecraft 26.2.x compatibility"
   },
+  "26.3": {
+    "3.2.0": "Minecraft 26.3 support for Fabric and NeoForge"
+  },
   "promos": {
     "1.19.4-latest": "1.0.0",
     "1.19.4-recommended": "1.0.0",
@@ -23,6 +26,8 @@
     "1.21.1-latest": "3.0.0",
     "1.21.1-recommended": "3.0.0",
     "26.2-latest": "3.1.2",
-    "26.2-recommended": "3.1.2"
+    "26.2-recommended": "3.1.2",
+    "26.3-latest": "3.2.0",
+    "26.3-recommended": "3.2.0"
   }
 }

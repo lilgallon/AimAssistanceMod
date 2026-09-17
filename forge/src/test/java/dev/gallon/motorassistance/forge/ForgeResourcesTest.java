@@ -37,7 +37,7 @@ class ForgeResourcesTest {
         String compactPackMetadata = packMetadata.replaceAll("\\s+", "");
 
         assertTrue(modsToml.contains("modId=\"motorassistancemod\""));
-        assertTrue(modsToml.contains("version=\"3.1.2\""));
+        assertTrue(modsToml.contains("version=\"3.2.0\""));
         assertTrue(modsToml.contains("clientSideOnly=true"));
         assertTrue(modsToml.contains("versionRange=\"[65,)\""));
         assertTrue(modsToml.contains("versionRange=\"[26.2,26.3)\""));

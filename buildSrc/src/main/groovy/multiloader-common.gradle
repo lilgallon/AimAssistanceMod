@@ -3,8 +3,10 @@ plugins {
     id 'maven-publish'
 }
 
+def targetMinecraftVersion = project.name == 'forge' ? forge_minecraft_version : minecraft_version
+
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}-${project.name}-${targetMinecraftVersion}"
 }
 
 java {
@@ -49,7 +51,7 @@ jar {
                 'Implementation-Title'  : project.name,
                 'Implementation-Version': project.jar.archiveVersion,
                 'Implementation-Vendor' : mod_author,
-                'Built-On-Minecraft'    : minecraft_version
+                'Built-On-Minecraft'    : targetMinecraftVersion
         ])
     }
 }
@@ -58,9 +60,10 @@ processResources {
     var expandProps = [
             'version'                          : version,
             'group'                            : project.group,
-            'minecraft_version'                : minecraft_version,
+            'minecraft_version'                : targetMinecraftVersion,
             'minecraft_version_range'          : minecraft_version_range,
             'fabric_version'                   : fabric_version,
+            'fabric_cloth_config_version'       : fabric_cloth_config_version,
             'fabric_loader_version'            : fabric_loader_version,
             'forge_version'                    : forge_version,
             'forge_loader_version_range'       : forge_loader_version_range,
