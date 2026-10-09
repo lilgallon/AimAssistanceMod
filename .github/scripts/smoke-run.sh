@@ -30,7 +30,8 @@ if [[ "$side" == "server" ]]; then
   command=(./gradlew "$task" --console=plain)
 else
   success_pattern='Created: .*minecraft:textures/atlas/gui\.png-atlas'
-  command=(xvfb-run -a ./gradlew "$task" --console=plain)
+  # xvfb-run defaults to an 8-bit screen, which offers no GLX visual for the OpenGL backend of Minecraft 26.3+
+  command=(xvfb-run -a -s "-screen 0 1920x1080x24" ./gradlew "$task" --console=plain)
 fi
 
 setsid "${command[@]}" > "$console_log" 2>&1 &
