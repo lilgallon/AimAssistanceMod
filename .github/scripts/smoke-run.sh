@@ -30,7 +30,10 @@ if [[ "$side" == "server" ]]; then
   command=(./gradlew "$task" --console=plain)
 else
   success_pattern='Created: .*minecraft:textures/atlas/gui\.png-atlas'
-  # xvfb-run defaults to an 8-bit screen, which offers no GLX visual for the OpenGL backend of Minecraft 26.3+
+  # Minecraft 26.3+ creates its window with SDL and asks for an sRGB-capable framebuffer, which Xvfb's GLX
+  # visuals do not offer: go through Mesa's software EGL instead.
+  export SDL_VIDEO_FORCE_EGL=1
+  export LIBGL_ALWAYS_SOFTWARE=1
   command=(xvfb-run -a -s "-screen 0 1920x1080x24" ./gradlew "$task" --console=plain)
 fi
 

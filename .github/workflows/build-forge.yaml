@@ -45,7 +45,7 @@ jobs:
         run: ./gradlew :forge:build
       - name: Install virtual display
         if: ${{ runner.os == 'Linux' }}
-        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri libegl1 libegl-mesa0
       - name: Forge client smoke test
         if: ${{ runner.os == 'Linux' }}
         run: bash .github/scripts/smoke-run.sh forge client
