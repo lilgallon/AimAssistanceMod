@@ -3,220 +3,231 @@ package dev.gallon.motorassistance.common.domain;
 import java.util.Objects;
 
 public class MotorAssistanceConfig {
-    public static final double MIN_FOV = 0.0;
-    public static final double MAX_FOV = 180.0;
-    public static final double MIN_RANGE = 0.0;
-    public static final double MAX_RANGE = 64.0;
-    public static final double MIN_AIM_FORCE = 0.0;
-    public static final double MAX_AIM_FORCE = 100.0;
-    public static final double MIN_ATTACK_INTERACTION_SPEED = 0.0;
-    public static final double MAX_ATTACK_INTERACTION_SPEED = 100.0;
-    public static final long MIN_DURATION = 0L;
-    public static final long MIN_ATTACK_INTERACTION_DURATION = 1L;
-    public static final long MAX_DURATION = 60_000L;
+    /**
+     * Kept out of the instance's fields: config GUI libraries (AutoConfig) enumerate every declared
+     * field of {@link MotorAssistanceConfig}, including statics, and fail on save when they try to write them.
+     */
+    public static final class Bounds {
+        public static final double MIN_FOV = 0.0;
+        public static final double MAX_FOV = 180.0;
+        public static final double MIN_RANGE = 0.0;
+        public static final double MAX_RANGE = 64.0;
+        public static final double MIN_AIM_FORCE = 0.0;
+        public static final double MAX_AIM_FORCE = 100.0;
+        public static final double MIN_ATTACK_INTERACTION_SPEED = 0.0;
+        public static final double MAX_ATTACK_INTERACTION_SPEED = 100.0;
+        public static final long MIN_DURATION = 0L;
+        public static final long MIN_ATTACK_INTERACTION_DURATION = 1L;
+        public static final long MAX_DURATION = 60_000L;
 
-    private static final Boolean DEFAULT_SHOW_HUD_INDICATOR = true;
-    private static final Double DEFAULT_FOV = 60.0;
-    private static final Boolean DEFAULT_AIM_BLOCK = true;
-    private static final Double DEFAULT_BLOCK_RANGE = 7.0;
-    private static final Long DEFAULT_MINING_INTERACTION_DURATION = 500L;
-    private static final Long DEFAULT_MINING_ASSISTANCE_DURATION = 600L;
-    private static final Double DEFAULT_MINING_AIM_FORCE = 7.0;
-    private static final Boolean DEFAULT_AIM_ENTITY = true;
-    private static final Double DEFAULT_ENTITY_RANGE = 5.0;
-    private static final Double DEFAULT_ATTACK_INTERACTION_SPEED = 0.5;
-    private static final Long DEFAULT_ATTACK_INTERACTION_DURATION = 1000L;
-    private static final Long DEFAULT_ATTACK_ASSISTANCE_DURATION = 1100L;
-    private static final Double DEFAULT_ATTACK_AIM_FORCE = 7.0;
-    private static final Boolean DEFAULT_STOP_ATTACK_ON_REACHED = false;
+        private Bounds() {
+        }
+    }
 
-    private Boolean showHudIndicator = DEFAULT_SHOW_HUD_INDICATOR;
-    private Double fov = DEFAULT_FOV;
-    private Boolean aimBlock = DEFAULT_AIM_BLOCK;
-    private Double blockRange = DEFAULT_BLOCK_RANGE;
-    private Long miningInteractionDuration = DEFAULT_MINING_INTERACTION_DURATION;
-    private Long miningAssistanceDuration = DEFAULT_MINING_ASSISTANCE_DURATION;
-    private Double miningAimForce = DEFAULT_MINING_AIM_FORCE;
-    private Boolean aimEntity = DEFAULT_AIM_ENTITY;
-    private Double entityRange = DEFAULT_ENTITY_RANGE;
-    private Double attackInteractionSpeed = DEFAULT_ATTACK_INTERACTION_SPEED;
-    private Long attackInteractionDuration = DEFAULT_ATTACK_INTERACTION_DURATION;
-    private Long attackAssistanceDuration = DEFAULT_ATTACK_ASSISTANCE_DURATION;
-    private Double attackAimForce = DEFAULT_ATTACK_AIM_FORCE;
-    private Boolean stopAttackOnReached = DEFAULT_STOP_ATTACK_ON_REACHED;
+    private static final class Defaults {
+        static final Boolean SHOW_HUD_INDICATOR = true;
+        static final Double FOV = 60.0;
+        static final Boolean AIM_BLOCK = true;
+        static final Double BLOCK_RANGE = 7.0;
+        static final Long MINING_INTERACTION_DURATION = 500L;
+        static final Long MINING_ASSISTANCE_DURATION = 600L;
+        static final Double MINING_AIM_FORCE = 7.0;
+        static final Boolean AIM_ENTITY = true;
+        static final Double ENTITY_RANGE = 5.0;
+        static final Double ATTACK_INTERACTION_SPEED = 0.5;
+        static final Long ATTACK_INTERACTION_DURATION = 1000L;
+        static final Long ATTACK_ASSISTANCE_DURATION = 1100L;
+        static final Double ATTACK_AIM_FORCE = 7.0;
+        static final Boolean STOP_ATTACK_ON_REACHED = false;
+    }
+
+    private Boolean showHudIndicator = Defaults.SHOW_HUD_INDICATOR;
+    private Double fov = Defaults.FOV;
+    private Boolean aimBlock = Defaults.AIM_BLOCK;
+    private Double blockRange = Defaults.BLOCK_RANGE;
+    private Long miningInteractionDuration = Defaults.MINING_INTERACTION_DURATION;
+    private Long miningAssistanceDuration = Defaults.MINING_ASSISTANCE_DURATION;
+    private Double miningAimForce = Defaults.MINING_AIM_FORCE;
+    private Boolean aimEntity = Defaults.AIM_ENTITY;
+    private Double entityRange = Defaults.ENTITY_RANGE;
+    private Double attackInteractionSpeed = Defaults.ATTACK_INTERACTION_SPEED;
+    private Long attackInteractionDuration = Defaults.ATTACK_INTERACTION_DURATION;
+    private Long attackAssistanceDuration = Defaults.ATTACK_ASSISTANCE_DURATION;
+    private Double attackAimForce = Defaults.ATTACK_AIM_FORCE;
+    private Boolean stopAttackOnReached = Defaults.STOP_ATTACK_ON_REACHED;
 
     public boolean getShowHudIndicator() {
-        return Objects.requireNonNullElse(showHudIndicator, DEFAULT_SHOW_HUD_INDICATOR);
+        return Objects.requireNonNullElse(showHudIndicator, Defaults.SHOW_HUD_INDICATOR);
     }
 
     public void setShowHudIndicator(Boolean showHudIndicator) {
-        this.showHudIndicator = Objects.requireNonNullElse(showHudIndicator, DEFAULT_SHOW_HUD_INDICATOR);
+        this.showHudIndicator = Objects.requireNonNullElse(showHudIndicator, Defaults.SHOW_HUD_INDICATOR);
     }
 
     public double getFov() {
-        return sanitizeDouble(fov, DEFAULT_FOV, MIN_FOV, MAX_FOV);
+        return sanitizeDouble(fov, Defaults.FOV, Bounds.MIN_FOV, Bounds.MAX_FOV);
     }
 
     public void setFov(Double fov) {
-        this.fov = sanitizeDouble(fov, DEFAULT_FOV, MIN_FOV, MAX_FOV);
+        this.fov = sanitizeDouble(fov, Defaults.FOV, Bounds.MIN_FOV, Bounds.MAX_FOV);
     }
 
     public boolean getAimBlock() {
-        return Objects.requireNonNullElse(aimBlock, DEFAULT_AIM_BLOCK);
+        return Objects.requireNonNullElse(aimBlock, Defaults.AIM_BLOCK);
     }
 
     public void setAimBlock(Boolean aimBlock) {
-        this.aimBlock = Objects.requireNonNullElse(aimBlock, DEFAULT_AIM_BLOCK);
+        this.aimBlock = Objects.requireNonNullElse(aimBlock, Defaults.AIM_BLOCK);
     }
 
     public double getBlockRange() {
-        return sanitizeDouble(blockRange, DEFAULT_BLOCK_RANGE, MIN_RANGE, MAX_RANGE);
+        return sanitizeDouble(blockRange, Defaults.BLOCK_RANGE, Bounds.MIN_RANGE, Bounds.MAX_RANGE);
     }
 
     public void setBlockRange(Double blockRange) {
-        this.blockRange = sanitizeDouble(blockRange, DEFAULT_BLOCK_RANGE, MIN_RANGE, MAX_RANGE);
+        this.blockRange = sanitizeDouble(blockRange, Defaults.BLOCK_RANGE, Bounds.MIN_RANGE, Bounds.MAX_RANGE);
     }
 
     public long getMiningInteractionDuration() {
         return sanitizeLong(
                 miningInteractionDuration,
-                DEFAULT_MINING_INTERACTION_DURATION,
-                MIN_DURATION,
-                MAX_DURATION
+                Defaults.MINING_INTERACTION_DURATION,
+                Bounds.MIN_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public void setMiningInteractionDuration(Long miningInteractionDuration) {
         this.miningInteractionDuration = sanitizeLong(
                 miningInteractionDuration,
-                DEFAULT_MINING_INTERACTION_DURATION,
-                MIN_DURATION,
-                MAX_DURATION
+                Defaults.MINING_INTERACTION_DURATION,
+                Bounds.MIN_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public long getMiningAssistanceDuration() {
         return sanitizeLong(
                 miningAssistanceDuration,
-                DEFAULT_MINING_ASSISTANCE_DURATION,
-                MIN_DURATION,
-                MAX_DURATION
+                Defaults.MINING_ASSISTANCE_DURATION,
+                Bounds.MIN_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public void setMiningAssistanceDuration(Long miningAssistanceDuration) {
         this.miningAssistanceDuration = sanitizeLong(
                 miningAssistanceDuration,
-                DEFAULT_MINING_ASSISTANCE_DURATION,
-                MIN_DURATION,
-                MAX_DURATION
+                Defaults.MINING_ASSISTANCE_DURATION,
+                Bounds.MIN_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public double getMiningAimForce() {
-        return sanitizeDouble(miningAimForce, DEFAULT_MINING_AIM_FORCE, MIN_AIM_FORCE, MAX_AIM_FORCE);
+        return sanitizeDouble(miningAimForce, Defaults.MINING_AIM_FORCE, Bounds.MIN_AIM_FORCE, Bounds.MAX_AIM_FORCE);
     }
 
     public void setMiningAimForce(Double miningAimForce) {
         this.miningAimForce = sanitizeDouble(
                 miningAimForce,
-                DEFAULT_MINING_AIM_FORCE,
-                MIN_AIM_FORCE,
-                MAX_AIM_FORCE
+                Defaults.MINING_AIM_FORCE,
+                Bounds.MIN_AIM_FORCE,
+                Bounds.MAX_AIM_FORCE
         );
     }
 
     public boolean getAimEntity() {
-        return Objects.requireNonNullElse(aimEntity, DEFAULT_AIM_ENTITY);
+        return Objects.requireNonNullElse(aimEntity, Defaults.AIM_ENTITY);
     }
 
     public void setAimEntity(Boolean aimEntity) {
-        this.aimEntity = Objects.requireNonNullElse(aimEntity, DEFAULT_AIM_ENTITY);
+        this.aimEntity = Objects.requireNonNullElse(aimEntity, Defaults.AIM_ENTITY);
     }
 
     public double getEntityRange() {
-        return sanitizeDouble(entityRange, DEFAULT_ENTITY_RANGE, MIN_RANGE, MAX_RANGE);
+        return sanitizeDouble(entityRange, Defaults.ENTITY_RANGE, Bounds.MIN_RANGE, Bounds.MAX_RANGE);
     }
 
     public void setEntityRange(Double entityRange) {
-        this.entityRange = sanitizeDouble(entityRange, DEFAULT_ENTITY_RANGE, MIN_RANGE, MAX_RANGE);
+        this.entityRange = sanitizeDouble(entityRange, Defaults.ENTITY_RANGE, Bounds.MIN_RANGE, Bounds.MAX_RANGE);
     }
 
     public double getAttackInteractionSpeed() {
         return sanitizeDouble(
                 attackInteractionSpeed,
-                DEFAULT_ATTACK_INTERACTION_SPEED,
-                MIN_ATTACK_INTERACTION_SPEED,
-                MAX_ATTACK_INTERACTION_SPEED
+                Defaults.ATTACK_INTERACTION_SPEED,
+                Bounds.MIN_ATTACK_INTERACTION_SPEED,
+                Bounds.MAX_ATTACK_INTERACTION_SPEED
         );
     }
 
     public void setAttackInteractionSpeed(Double attackInteractionSpeed) {
         this.attackInteractionSpeed = sanitizeDouble(
                 attackInteractionSpeed,
-                DEFAULT_ATTACK_INTERACTION_SPEED,
-                MIN_ATTACK_INTERACTION_SPEED,
-                MAX_ATTACK_INTERACTION_SPEED
+                Defaults.ATTACK_INTERACTION_SPEED,
+                Bounds.MIN_ATTACK_INTERACTION_SPEED,
+                Bounds.MAX_ATTACK_INTERACTION_SPEED
         );
     }
 
     public long getAttackInteractionDuration() {
         return sanitizeLong(
                 attackInteractionDuration,
-                DEFAULT_ATTACK_INTERACTION_DURATION,
-                MIN_ATTACK_INTERACTION_DURATION,
-                MAX_DURATION
+                Defaults.ATTACK_INTERACTION_DURATION,
+                Bounds.MIN_ATTACK_INTERACTION_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public void setAttackInteractionDuration(Long attackInteractionDuration) {
         this.attackInteractionDuration = sanitizeLong(
                 attackInteractionDuration,
-                DEFAULT_ATTACK_INTERACTION_DURATION,
-                MIN_ATTACK_INTERACTION_DURATION,
-                MAX_DURATION
+                Defaults.ATTACK_INTERACTION_DURATION,
+                Bounds.MIN_ATTACK_INTERACTION_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public long getAttackAssistanceDuration() {
         return sanitizeLong(
                 attackAssistanceDuration,
-                DEFAULT_ATTACK_ASSISTANCE_DURATION,
-                MIN_DURATION,
-                MAX_DURATION
+                Defaults.ATTACK_ASSISTANCE_DURATION,
+                Bounds.MIN_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public void setAttackAssistanceDuration(Long attackAssistanceDuration) {
         this.attackAssistanceDuration = sanitizeLong(
                 attackAssistanceDuration,
-                DEFAULT_ATTACK_ASSISTANCE_DURATION,
-                MIN_DURATION,
-                MAX_DURATION
+                Defaults.ATTACK_ASSISTANCE_DURATION,
+                Bounds.MIN_DURATION,
+                Bounds.MAX_DURATION
         );
     }
 
     public double getAttackAimForce() {
-        return sanitizeDouble(attackAimForce, DEFAULT_ATTACK_AIM_FORCE, MIN_AIM_FORCE, MAX_AIM_FORCE);
+        return sanitizeDouble(attackAimForce, Defaults.ATTACK_AIM_FORCE, Bounds.MIN_AIM_FORCE, Bounds.MAX_AIM_FORCE);
     }
 
     public void setAttackAimForce(Double attackAimForce) {
         this.attackAimForce = sanitizeDouble(
                 attackAimForce,
-                DEFAULT_ATTACK_AIM_FORCE,
-                MIN_AIM_FORCE,
-                MAX_AIM_FORCE
+                Defaults.ATTACK_AIM_FORCE,
+                Bounds.MIN_AIM_FORCE,
+                Bounds.MAX_AIM_FORCE
         );
     }
 
     public boolean getStopAttackOnReached() {
-        return Objects.requireNonNullElse(stopAttackOnReached, DEFAULT_STOP_ATTACK_ON_REACHED);
+        return Objects.requireNonNullElse(stopAttackOnReached, Defaults.STOP_ATTACK_ON_REACHED);
     }
 
     public void setStopAttackOnReached(Boolean stopAttackOnReached) {
         this.stopAttackOnReached = Objects.requireNonNullElse(
                 stopAttackOnReached,
-                DEFAULT_STOP_ATTACK_ON_REACHED
+                Defaults.STOP_ATTACK_ON_REACHED
         );
     }
 

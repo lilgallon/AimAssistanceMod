@@ -61,73 +61,73 @@ public final class MotorAssistanceConfigScreen extends Screen {
         options.addChild(doubleOption(
                 "fov",
                 draft.getFov(),
-                MotorAssistanceConfig.MIN_FOV,
-                MotorAssistanceConfig.MAX_FOV,
+                MotorAssistanceConfig.Bounds.MIN_FOV,
+                MotorAssistanceConfig.Bounds.MAX_FOV,
                 draft::setFov
         ));
         options.addChild(booleanOption("aimBlock", draft.getAimBlock(), draft::setAimBlock));
         options.addChild(doubleOption(
                 "blockRange",
                 draft.getBlockRange(),
-                MotorAssistanceConfig.MIN_RANGE,
-                MotorAssistanceConfig.MAX_RANGE,
+                MotorAssistanceConfig.Bounds.MIN_RANGE,
+                MotorAssistanceConfig.Bounds.MAX_RANGE,
                 draft::setBlockRange
         ));
         options.addChild(longOption(
                 "miningInteractionDuration",
                 draft.getMiningInteractionDuration(),
-                MotorAssistanceConfig.MIN_DURATION,
-                MotorAssistanceConfig.MAX_DURATION,
+                MotorAssistanceConfig.Bounds.MIN_DURATION,
+                MotorAssistanceConfig.Bounds.MAX_DURATION,
                 draft::setMiningInteractionDuration
         ));
         options.addChild(longOption(
                 "miningAssistanceDuration",
                 draft.getMiningAssistanceDuration(),
-                MotorAssistanceConfig.MIN_DURATION,
-                MotorAssistanceConfig.MAX_DURATION,
+                MotorAssistanceConfig.Bounds.MIN_DURATION,
+                MotorAssistanceConfig.Bounds.MAX_DURATION,
                 draft::setMiningAssistanceDuration
         ));
         options.addChild(doubleOption(
                 "miningAimForce",
                 draft.getMiningAimForce(),
-                MotorAssistanceConfig.MIN_AIM_FORCE,
-                MotorAssistanceConfig.MAX_AIM_FORCE,
+                MotorAssistanceConfig.Bounds.MIN_AIM_FORCE,
+                MotorAssistanceConfig.Bounds.MAX_AIM_FORCE,
                 draft::setMiningAimForce
         ));
         options.addChild(booleanOption("aimEntity", draft.getAimEntity(), draft::setAimEntity));
         options.addChild(doubleOption(
                 "entityRange",
                 draft.getEntityRange(),
-                MotorAssistanceConfig.MIN_RANGE,
-                MotorAssistanceConfig.MAX_RANGE,
+                MotorAssistanceConfig.Bounds.MIN_RANGE,
+                MotorAssistanceConfig.Bounds.MAX_RANGE,
                 draft::setEntityRange
         ));
         options.addChild(doubleOption(
                 "attackInteractionSpeed",
                 draft.getAttackInteractionSpeed(),
-                MotorAssistanceConfig.MIN_ATTACK_INTERACTION_SPEED,
-                MotorAssistanceConfig.MAX_ATTACK_INTERACTION_SPEED,
+                MotorAssistanceConfig.Bounds.MIN_ATTACK_INTERACTION_SPEED,
+                MotorAssistanceConfig.Bounds.MAX_ATTACK_INTERACTION_SPEED,
                 draft::setAttackInteractionSpeed
         ));
         options.addChild(longOption(
                 "attackInteractionDuration",
                 draft.getAttackInteractionDuration(),
-                MotorAssistanceConfig.MIN_ATTACK_INTERACTION_DURATION,
-                MotorAssistanceConfig.MAX_DURATION,
+                MotorAssistanceConfig.Bounds.MIN_ATTACK_INTERACTION_DURATION,
+                MotorAssistanceConfig.Bounds.MAX_DURATION,
                 draft::setAttackInteractionDuration
         ));
         options.addChild(longOption(
                 "attackAssistanceDuration",
                 draft.getAttackAssistanceDuration(),
-                MotorAssistanceConfig.MIN_DURATION,
-                MotorAssistanceConfig.MAX_DURATION,
+                MotorAssistanceConfig.Bounds.MIN_DURATION,
+                MotorAssistanceConfig.Bounds.MAX_DURATION,
                 draft::setAttackAssistanceDuration
         ));
         options.addChild(doubleOption(
                 "attackAimForce",
                 draft.getAttackAimForce(),
-                MotorAssistanceConfig.MIN_AIM_FORCE,
-                MotorAssistanceConfig.MAX_AIM_FORCE,
+                MotorAssistanceConfig.Bounds.MIN_AIM_FORCE,
+                MotorAssistanceConfig.Bounds.MAX_AIM_FORCE,
                 draft::setAttackAimForce
         ));
         options.addChild(booleanOption(

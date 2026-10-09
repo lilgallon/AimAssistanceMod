@@ -12,6 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MotorAssistanceConfigTest {
     @Test
+    void declaresNoStaticFieldSoConfigGuisDoNotTryToWriteIt() {
+        for (Field field : MotorAssistanceConfig.class.getDeclaredFields()) {
+            assertFalse(Modifier.isStatic(field.getModifiers()), field.getName() + " must not be static");
+        }
+    }
+
+    @Test
     void resetsEveryNullConfigEntryToItsDefaultValue() throws IllegalAccessException {
         MotorAssistanceConfig config = new MotorAssistanceConfig();
 
@@ -91,44 +98,44 @@ class MotorAssistanceConfigTest {
         config.setAttackInteractionDuration(0L);
         config.setAttackAssistanceDuration(Long.MAX_VALUE);
 
-        assertEquals(MotorAssistanceConfig.MAX_FOV, config.getFov());
-        assertEquals(MotorAssistanceConfig.MIN_RANGE, config.getBlockRange());
-        assertEquals(MotorAssistanceConfig.MAX_RANGE, config.getEntityRange());
-        assertEquals(MotorAssistanceConfig.MIN_AIM_FORCE, config.getMiningAimForce());
-        assertEquals(MotorAssistanceConfig.MAX_AIM_FORCE, config.getAttackAimForce());
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_FOV, config.getFov());
+        assertEquals(MotorAssistanceConfig.Bounds.MIN_RANGE, config.getBlockRange());
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_RANGE, config.getEntityRange());
+        assertEquals(MotorAssistanceConfig.Bounds.MIN_AIM_FORCE, config.getMiningAimForce());
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_AIM_FORCE, config.getAttackAimForce());
         assertEquals(
-                MotorAssistanceConfig.MAX_ATTACK_INTERACTION_SPEED,
+                MotorAssistanceConfig.Bounds.MAX_ATTACK_INTERACTION_SPEED,
                 config.getAttackInteractionSpeed()
         );
-        assertEquals(MotorAssistanceConfig.MIN_DURATION, config.getMiningInteractionDuration());
-        assertEquals(MotorAssistanceConfig.MAX_DURATION, config.getMiningAssistanceDuration());
+        assertEquals(MotorAssistanceConfig.Bounds.MIN_DURATION, config.getMiningInteractionDuration());
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_DURATION, config.getMiningAssistanceDuration());
         assertEquals(
-                MotorAssistanceConfig.MIN_ATTACK_INTERACTION_DURATION,
+                MotorAssistanceConfig.Bounds.MIN_ATTACK_INTERACTION_DURATION,
                 config.getAttackInteractionDuration()
         );
-        assertEquals(MotorAssistanceConfig.MAX_DURATION, config.getAttackAssistanceDuration());
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_DURATION, config.getAttackAssistanceDuration());
     }
 
     @Test
     void preservesValuesAtEveryBoundary() {
         MotorAssistanceConfig config = new MotorAssistanceConfig();
 
-        config.setFov(MotorAssistanceConfig.MIN_FOV);
-        assertEquals(MotorAssistanceConfig.MIN_FOV, config.getFov());
-        config.setFov(MotorAssistanceConfig.MAX_FOV);
-        assertEquals(MotorAssistanceConfig.MAX_FOV, config.getFov());
+        config.setFov(MotorAssistanceConfig.Bounds.MIN_FOV);
+        assertEquals(MotorAssistanceConfig.Bounds.MIN_FOV, config.getFov());
+        config.setFov(MotorAssistanceConfig.Bounds.MAX_FOV);
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_FOV, config.getFov());
 
-        config.setEntityRange(MotorAssistanceConfig.MIN_RANGE);
-        assertEquals(MotorAssistanceConfig.MIN_RANGE, config.getEntityRange());
-        config.setEntityRange(MotorAssistanceConfig.MAX_RANGE);
-        assertEquals(MotorAssistanceConfig.MAX_RANGE, config.getEntityRange());
+        config.setEntityRange(MotorAssistanceConfig.Bounds.MIN_RANGE);
+        assertEquals(MotorAssistanceConfig.Bounds.MIN_RANGE, config.getEntityRange());
+        config.setEntityRange(MotorAssistanceConfig.Bounds.MAX_RANGE);
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_RANGE, config.getEntityRange());
 
-        config.setAttackInteractionDuration(MotorAssistanceConfig.MIN_ATTACK_INTERACTION_DURATION);
+        config.setAttackInteractionDuration(MotorAssistanceConfig.Bounds.MIN_ATTACK_INTERACTION_DURATION);
         assertEquals(
-                MotorAssistanceConfig.MIN_ATTACK_INTERACTION_DURATION,
+                MotorAssistanceConfig.Bounds.MIN_ATTACK_INTERACTION_DURATION,
                 config.getAttackInteractionDuration()
         );
-        config.setAttackInteractionDuration(MotorAssistanceConfig.MAX_DURATION);
-        assertEquals(MotorAssistanceConfig.MAX_DURATION, config.getAttackInteractionDuration());
+        config.setAttackInteractionDuration(MotorAssistanceConfig.Bounds.MAX_DURATION);
+        assertEquals(MotorAssistanceConfig.Bounds.MAX_DURATION, config.getAttackInteractionDuration());
     }
 }

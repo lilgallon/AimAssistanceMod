@@ -33,8 +33,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "fov",
                         60.0,
-                        MotorAssistanceConfig.MIN_FOV,
-                        MotorAssistanceConfig.MAX_FOV
+                        MotorAssistanceConfig.Bounds.MIN_FOV,
+                        MotorAssistanceConfig.Bounds.MAX_FOV
                 );
         aimBlock = builder
                 .comment("Enable aim assistance while mining blocks.")
@@ -46,8 +46,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "blockRange",
                         7.0,
-                        MotorAssistanceConfig.MIN_RANGE,
-                        MotorAssistanceConfig.MAX_RANGE
+                        MotorAssistanceConfig.Bounds.MIN_RANGE,
+                        MotorAssistanceConfig.Bounds.MAX_RANGE
                 );
         miningInteractionDuration = builder
                 .comment("Interaction duration in milliseconds before mining assistance starts.")
@@ -55,8 +55,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "miningInteractionDuration",
                         500L,
-                        MotorAssistanceConfig.MIN_DURATION,
-                        MotorAssistanceConfig.MAX_DURATION
+                        MotorAssistanceConfig.Bounds.MIN_DURATION,
+                        MotorAssistanceConfig.Bounds.MAX_DURATION
                 );
         miningAssistanceDuration = builder
                 .comment("Maximum mining assistance duration in milliseconds.")
@@ -64,8 +64,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "miningAssistanceDuration",
                         600L,
-                        MotorAssistanceConfig.MIN_DURATION,
-                        MotorAssistanceConfig.MAX_DURATION
+                        MotorAssistanceConfig.Bounds.MIN_DURATION,
+                        MotorAssistanceConfig.Bounds.MAX_DURATION
                 );
         miningAimForce = builder
                 .comment("Strength of mining aim assistance.")
@@ -73,8 +73,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "miningAimForce",
                         7.0,
-                        MotorAssistanceConfig.MIN_AIM_FORCE,
-                        MotorAssistanceConfig.MAX_AIM_FORCE
+                        MotorAssistanceConfig.Bounds.MIN_AIM_FORCE,
+                        MotorAssistanceConfig.Bounds.MAX_AIM_FORCE
                 );
         aimEntity = builder
                 .comment("Enable aim assistance while attacking entities.")
@@ -86,8 +86,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "entityRange",
                         5.0,
-                        MotorAssistanceConfig.MIN_RANGE,
-                        MotorAssistanceConfig.MAX_RANGE
+                        MotorAssistanceConfig.Bounds.MIN_RANGE,
+                        MotorAssistanceConfig.Bounds.MAX_RANGE
                 );
         attackInteractionSpeed = builder
                 .comment("Clicks per second required to trigger attack assistance.")
@@ -95,8 +95,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "attackInteractionSpeed",
                         0.5,
-                        MotorAssistanceConfig.MIN_ATTACK_INTERACTION_SPEED,
-                        MotorAssistanceConfig.MAX_ATTACK_INTERACTION_SPEED
+                        MotorAssistanceConfig.Bounds.MIN_ATTACK_INTERACTION_SPEED,
+                        MotorAssistanceConfig.Bounds.MAX_ATTACK_INTERACTION_SPEED
                 );
         attackInteractionDuration = builder
                 .comment("Interaction duration in milliseconds before attack assistance starts.")
@@ -104,8 +104,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "attackInteractionDuration",
                         1000L,
-                        MotorAssistanceConfig.MIN_ATTACK_INTERACTION_DURATION,
-                        MotorAssistanceConfig.MAX_DURATION
+                        MotorAssistanceConfig.Bounds.MIN_ATTACK_INTERACTION_DURATION,
+                        MotorAssistanceConfig.Bounds.MAX_DURATION
                 );
         attackAssistanceDuration = builder
                 .comment("Maximum attack assistance duration in milliseconds.")
@@ -113,8 +113,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "attackAssistanceDuration",
                         1100L,
-                        MotorAssistanceConfig.MIN_DURATION,
-                        MotorAssistanceConfig.MAX_DURATION
+                        MotorAssistanceConfig.Bounds.MIN_DURATION,
+                        MotorAssistanceConfig.Bounds.MAX_DURATION
                 );
         attackAimForce = builder
                 .comment("Strength of attack aim assistance.")
@@ -122,8 +122,8 @@ public final class ClientConfig {
                 .defineInRange(
                         "attackAimForce",
                         7.0,
-                        MotorAssistanceConfig.MIN_AIM_FORCE,
-                        MotorAssistanceConfig.MAX_AIM_FORCE
+                        MotorAssistanceConfig.Bounds.MIN_AIM_FORCE,
+                        MotorAssistanceConfig.Bounds.MAX_AIM_FORCE
                 );
         stopAttackOnReached = builder
                 .comment("Stop attack assistance once the targeted entity is reached.")
