@@ -1,6 +1,9 @@
-## Version 3.1.2 Forge
+## Version 3.2.0 Forge
 
-_supports Minecraft 26.2.x_
+_supports Minecraft 26.3.x_
+
+Requirements:
+- Forge: `>=66.0.9`
 
 Changes:
-- Support for forge!!
+- Ported to Minecraft 26.3. Minecraft 26.2 is no longer supported by this version.

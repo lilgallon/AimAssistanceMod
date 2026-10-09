@@ -22,8 +22,7 @@ not used to play on a computer. Everything is configurable. Ideal to introduce M
 
 **Supported loaders**
 
-- Fabric and NeoForge for Minecraft 26.3.x.
-- Forge for Minecraft 26.2.x.
+- Fabric, Forge and NeoForge for Minecraft 26.3.x.
 - Fabric uses Cloth Config and Mod Menu for its configuration screen.
 - Forge and NeoForge use native client configuration; Forge also exposes a scrollable in-game screen from the mods list.
 

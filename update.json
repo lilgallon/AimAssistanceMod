@@ -16,7 +16,7 @@
     "3.1.2": "Anti-crash hardening, bounded configuration values and Minecraft 26.2.x compatibility"
   },
   "26.3": {
-    "3.2.0": "Minecraft 26.3 support for Fabric and NeoForge"
+    "3.2.0": "Minecraft 26.3 support for Forge"
   },
   "promos": {
     "1.19.4-latest": "1.0.0",

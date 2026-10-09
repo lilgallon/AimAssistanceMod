@@ -4,5 +4,5 @@ plugins {
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id 'net.neoforged.moddev' version '2.0.147' apply false
     // see https://maven.minecraftforge.net/net/minecraftforge/gradle/ForgeGradle/
-    id 'net.minecraftforge.gradle' version '7.0.34' apply false
+    id 'net.minecraftforge.gradle' version '7.0.40' apply false
 }

@@ -39,14 +39,14 @@ class ForgeResourcesTest {
         assertTrue(modsToml.contains("modId=\"motorassistancemod\""));
         assertTrue(modsToml.contains("version=\"3.2.0\""));
         assertTrue(modsToml.contains("clientSideOnly=true"));
-        assertTrue(modsToml.contains("versionRange=\"[65,)\""));
-        assertTrue(modsToml.contains("versionRange=\"[26.2,26.3)\""));
+        assertTrue(modsToml.contains("versionRange=\"[66.0.9,)\""));
+        assertTrue(modsToml.contains("versionRange=\"[26.3,26.4)\""));
         assertTrue(modsToml.contains("updateJSONURL="));
         assertFalse(modsToml.contains("${"));
 
         assertTrue(packMetadata.contains("\"description\": \"motorassistancemod resources\""));
-        assertTrue(packMetadata.contains("\"max_format\": 107"));
-        assertTrue(compactPackMetadata.contains("\"min_format\":[107,1]"));
+        assertTrue(packMetadata.contains("\"max_format\": 121"));
+        assertTrue(compactPackMetadata.contains("\"min_format\":[121,0]"));
         assertNull(ForgeResourcesTest.class.getResource("/fabric.mod.json"));
         assertNull(ForgeResourcesTest.class.getResource("/META-INF/neoforge.mods.toml"));
         assertNull(ForgeResourcesTest.class.getResource("/pack.metadata"));
